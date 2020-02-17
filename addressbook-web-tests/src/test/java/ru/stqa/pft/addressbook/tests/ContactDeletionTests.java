@@ -6,9 +6,9 @@ public class ContactDeletionTests extends TestBase{
 
   @Test
   public void testContactDeletion() throws Exception {
-    app.selectCheckbox();
-    app.clicktoDeleteButton();
-    app.alertAssept();
+    app.getContactHelper().selectCheckbox();
+    app.getContactHelper().clicktoDeleteButton();
+    app.getContactHelper().alertAssept();
   }
 
 }
