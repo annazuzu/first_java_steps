@@ -1,4 +1,4 @@
-package ru.stqa.pft.addressbook;
+package ru.stqa.pft.addressbook.tests;
 
 import org.testng.annotations.Test;
 
@@ -6,9 +6,9 @@ public class ContactDeletionTests extends TestBase{
 
   @Test
   public void testContactDeletion() throws Exception {
-    selectCheckbox();
-    clicktoDeleteButton();
-    alertAssept();
+    app.selectCheckbox();
+    app.clicktoDeleteButton();
+    app.alertAssept();
   }
 
 }
