@@ -4,37 +4,31 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.stqa.pft.addressbook.model.ContactData;
 
-public class ContactHelper {
-
-    public WebDriver wd;
+public class ContactHelper extends HelperBase{
 
     public ContactHelper(WebDriver wd) {
-        this.wd = wd;
+        super(wd);
     }
 
     public void returntoHomePage() {
-      wd.findElement(By.linkText("home page")).click();
+      click(By.linkText("home page"));
     }
 
     public void submitContactCreation() {
-      wd.findElement(By.xpath("(//input[@name='submit'])[2]")).click();
+      click(By.xpath("(//input[@name='submit'])[2]"));
     }
 
     public void fillContactForm(ContactData contactData) {
-      wd.findElement(By.name("firstname")).click();
-      wd.findElement(By.name("firstname")).sendKeys(contactData.getName());
-      wd.findElement(By.name("lastname")).click();
-      wd.findElement(By.name("lastname")).sendKeys(contactData.getSurname());
-      wd.findElement(By.name("title")).click();
-      wd.findElement(By.name("title")).sendKeys(contactData.getTitleContact());
-      wd.findElement(By.name("mobile")).click();
-      wd.findElement(By.name("mobile")).sendKeys(contactData.getTelMobile());
-      wd.findElement(By.name("email")).click();
-      wd.findElement(By.name("email")).sendKeys(contactData.getEmail());
+        type(By.name("firstname"),contactData.getName() );
+        type(By.name("lastname"), contactData.getSurname());
+        type(By.name("title"), contactData.getTitleContact());
+        type(By.name("mobile"), contactData.getTelMobile());
+        type(By.name("email"), contactData.getEmail());
+
     }
 
     public void initContactCreation() {
-      wd.findElement(By.linkText("add new")).click();
+      click(By.linkText("add new"));
     }
 
     public void alertAssept() {
@@ -42,10 +36,10 @@ public class ContactHelper {
     }
 
     public void clicktoDeleteButton() {
-      wd.findElement(By.xpath("//input[@value='Delete']")).click();
+      click(By.xpath("//input[@value='Delete']"));
     }
 
     public void selectCheckbox() {
-      wd.findElement(By.xpath("/html/body/div/div[4]/form[2]/table/tbody/tr[2]/td[1]/input")).click();
+      click(By.xpath("/html/body/div/div[4]/form[2]/table/tbody/tr[2]/td[1]/input"));
     }
 }
