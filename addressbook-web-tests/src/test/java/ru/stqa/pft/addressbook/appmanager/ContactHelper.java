@@ -42,4 +42,13 @@ public class ContactHelper extends HelperBase{
     public void selectCheckbox() {
       click(By.xpath("/html/body/div/div[4]/form[2]/table/tbody/tr[2]/td[1]/input"));
     }
+
+    public void initContactModification() {
+        click(By.xpath("//img[@alt='Edit']"));
+    }
+
+    public void submitContactModification() {
+        click(By.name("update"));
+
+    }
 }
