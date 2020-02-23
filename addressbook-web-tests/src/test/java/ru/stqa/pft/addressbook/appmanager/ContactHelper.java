@@ -2,7 +2,10 @@ package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Select;
 import ru.stqa.pft.addressbook.model.ContactData;
+
+import java.util.NoSuchElementException;
 
 public class ContactHelper extends HelperBase{
 
@@ -24,6 +27,10 @@ public class ContactHelper extends HelperBase{
         type(By.name("title"), contactData.getTitleContact());
         type(By.name("mobile"), contactData.getTelMobile());
         type(By.name("email"), contactData.getEmail());
+
+        if(isElementPresent(By.name("new_group"))) {
+            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+        }
 
     }
 
