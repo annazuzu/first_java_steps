@@ -62,4 +62,18 @@ public class ContactHelper extends HelperBase{
         click(By.name("update"));
 
     }
+
+    public boolean isThereACheckboxInTable() {
+        return isElementPresent(By.xpath("/html/body/div/div[4]/form[2]/table/tbody/tr[2]/td[1]/input"));
+    }
+
+    public boolean isThereAZeroNumber() { //неправильный путь, но пусть будет на память
+        return isElementPresent(By.cssSelector("span#search_count 0"));
+    }
+
+    public void createContact(ContactData contactData, boolean b) {
+        initContactCreation();
+        fillContactForm(new ContactData("Anna", "Maksimova", "Contact1", "9005905555", "maxann89@gmail.com", "test4"), true);
+        submitContactCreation();
+    }
 }
