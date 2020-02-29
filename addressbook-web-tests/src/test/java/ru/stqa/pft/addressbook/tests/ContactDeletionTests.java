@@ -8,12 +8,13 @@ public class ContactDeletionTests extends TestBase{
 
   @Test
   public void testContactDeletion() throws Exception {
-    int before = app.getContactHelper().getContactCount();
+
     if(! app.getContactHelper().isThereACheckboxInTable()) {
       app.getContactHelper().createContact(new ContactData("Anna", "Maksimova", "Contact1", "9005905555", "maxann89@gmail.com", "test4"), true);
       app.getNavigationHelper().returntoHomePage();
     }
-    app.getContactHelper().selectCheckbox();
+    int before = app.getContactHelper().getContactCount();
+    app.getContactHelper().selectCheckbox(before - 1);
     app.getContactHelper().clicktoDeleteButton();
     app.getContactHelper().alertAssept();
     int after = app.getContactHelper().getContactCount();
