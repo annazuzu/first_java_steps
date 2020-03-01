@@ -9,7 +9,6 @@ import ru.stqa.pft.addressbook.model.ContactData;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 public class ContactHelper extends HelperBase{
 
@@ -90,9 +89,9 @@ public class ContactHelper extends HelperBase{
         List<ContactData> contacts = new ArrayList<ContactData>();
         List<WebElement> elements = wd.findElements(By.name("entry"));
         for (WebElement element : elements) {
-            String name = element.findElement(By.xpath("//*[@id=\"maintable\"]/tbody/tr[]")).getText();
-            String surname = element.findElement(By.xpath("//*[@id=\"maintable\"]/tbody/tr[]")).getText();
-            String id = element.findElement(By.tagName("input")).getAttribute("value");
+            String name = element.findElements(By.tagName("td")).get(2).getText();
+            String surname = element.findElements(By.tagName("td")).get(1).getText();
+            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
             ContactData contact = new ContactData(id, name, surname, null, null, null, null);
             contacts.add(contact);
         }

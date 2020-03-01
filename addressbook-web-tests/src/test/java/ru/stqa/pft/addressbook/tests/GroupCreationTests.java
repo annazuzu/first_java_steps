@@ -5,7 +5,6 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 public class GroupCreationTests extends TestBase {
@@ -36,7 +35,7 @@ public class GroupCreationTests extends TestBase {
 //переделываем анонимный класс в анонимную функцию. автоматически, средствами среды разработки
     //анонимный(одноразовый) класс с единственным методом compare()
 //    Comparator<? super GroupData> byId = (Comparator<GroupData>) (o1, o2) -> Integer.compare(o1.getId(), o2.getId());
-    int max1 = after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId();   //stream() - поток. в него можно превратить список; byId - переменная-компаратор
+    //int max1 = after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId();   //stream() - поток. в него можно превратить список; byId - переменная-компаратор
 //    int max1 = after.stream().max(Comparator.comparingInt(GroupData::getId)).get().getId();
     //метод max отработал и с помощью метода get() получаем его идентификатор getId()
     //этот метод передаем в качестве значения переменной int max
@@ -44,10 +43,14 @@ public class GroupCreationTests extends TestBase {
 
 //=====================================================================================
 
-    group.setId(max1);    //когда в конце найдется самый большой идентификатор, то присваиваем его значение в качестве идентификатора новой группы; делаем доп. метод сеттер
+//group.setId(max1);    //когда в конце найдется самый большой идентификатор, то присваиваем его значение в качестве идентификатора новой группы; делаем доп. метод сеттер
     before.add(group);
 
-    Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object> (after));
+    Comparator<? super GroupData> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
+    before.sort(byId);
+    after.sort(byId);
+
+    Assert.assertEquals(before, after);
     //теперь все группы в сравниваемых списках будут иметь идентификаторы и списки будут сравниваться без учета порядка
 
 
