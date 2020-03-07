@@ -9,18 +9,18 @@ import java.util.List;
 
 public class GroupCreationTests extends TestBase {
 
-  @Test
+  @Test (enabled = true)
   public void testGroupCreation() {
 
-    app.getNavigationHelper().gotoGroupPage();
-    List<GroupData> before = app.getGroupHelper().getGroupList();
+    app.goTo().GroupPage();
+    List<GroupData> before = app.group().list();
 //    int before = app.getGroupHelper().getGroupCount();
     GroupData group = new GroupData("testAfterComparator", null, null);
-    app.getGroupHelper().createGroup(group);
-    List<GroupData> after = app.getGroupHelper().getGroupList();
+    app.group().create(group);
+    List<GroupData> after = app.group().list();
 //    int after = app.getGroupHelper().getGroupCount();
     Assert.assertEquals(after.size(),before.size() + 1);
-//    app.getSessionHelper().logout();
+//    app.getSessionHelper().logout(); //DON'T TOUCH!!!
 
 //==============Старый способ сравнения с исп-ем цикла=================================
 //    int max = 0; //сначала устанавливаем максимум на к-л значение (любое), н. "0"
