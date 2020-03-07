@@ -7,6 +7,7 @@ import ru.stqa.pft.addressbook.model.ContactData;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 public class ContactModificationTests extends TestBase{
 
@@ -24,6 +25,7 @@ public class ContactModificationTests extends TestBase{
 
     public void testContactModification() {
         List<ContactData> before = app.сontact().list();
+//        ContactData modifiedContact = before.iterator().next();
         int index = before.size() - 1;
         ContactData contact = new ContactData().withId(before.get(index).getId()).withName("Elena").withSurname("Kulikova")
                 .withTitleContact("Contact2").withTelMobile("9005644444").withEmail("kulik@mail.ru");
