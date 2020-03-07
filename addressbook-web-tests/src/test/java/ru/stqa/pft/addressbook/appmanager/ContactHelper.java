@@ -34,9 +34,6 @@ public class ContactHelper extends HelperBase{
             Assert.assertFalse(isElementPresent(By.name("new_group"))); // Это карточка редактирования (модификации) контакта. Проверка того,
             //что этого элемента быть не должно на форме модификации контакта.
         }
-//        if(isElementPresent(By.name("new_group"))) {
-//            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
-//        }
 
     }
 
@@ -54,12 +51,10 @@ public class ContactHelper extends HelperBase{
 
     public void selectCheckbox(int indexContCheckbox) {
         wd.findElements(By.name("selected[]")).get(indexContCheckbox).click();
-//      click(By.xpath("/html/body/div/div[4]/form[2]/table/tbody/tr[2]/td[1]/input"));
     }
 
     public void initContactModification(int index) {
         wd.findElements(By.xpath("//img[@alt='Edit']")).get(index).click();
-//        click(By.xpath("//img[@alt='Edit']"));
     }
 
     public void submitContactModification() {
@@ -77,7 +72,7 @@ public class ContactHelper extends HelperBase{
 
     public void create(ContactData contactData, boolean b) {
         initContactCreation();
-        fillContactForm(new ContactData("Anna", "Maksimova", "Contact1", "9005905555", "maxann89@gmail.com", "test4"), true);
+        fillContactForm(contactData, true);
         submitContactCreation();
     }
 
@@ -92,8 +87,7 @@ public class ContactHelper extends HelperBase{
             String name = element.findElements(By.tagName("td")).get(2).getText();
             String surname = element.findElements(By.tagName("td")).get(1).getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            ContactData contact = new ContactData(id, name, surname, null, null, null, null);
-            contacts.add(contact);
+            contacts.add(new ContactData().withId(id).withName(name).withSurname(surname));
         }
 
         return contacts;

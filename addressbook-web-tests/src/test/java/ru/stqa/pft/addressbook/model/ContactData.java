@@ -3,40 +3,19 @@ package ru.stqa.pft.addressbook.model;
 import java.util.Objects;
 
 public class ContactData {
-    private int id;
-    private final String name;
-    private final String surname;
-    private final String titleContact;
-    private final String telMobile;
-    private final String email;
+
+    private int id = 0;
+    private String name;
+    private String surname;
+    private String titleContact;
+    private String telMobile;
+    private String email;
     private String group;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    //Геттеры:
 
     public int getId() {
         return id;
-    }
-
-    public ContactData(String name, String surname, String titleContact, String telMobile, String email, String group) {
-        this.id = 0;
-        this.name = name;
-        this.surname = surname;
-        this.titleContact = titleContact;
-        this.telMobile = telMobile;
-        this.email = email;
-        this.group = group;
-    }
-
-    public ContactData(int id, String name, String surname, String titleContact, String telMobile, String email, String group) {
-        this.id = id;
-        this.name = name;
-        this.surname = surname;
-        this.titleContact = titleContact;
-        this.telMobile = telMobile;
-        this.email = email;
-        this.group = group;
     }
 
     public String getName() {
@@ -61,6 +40,43 @@ public class ContactData {
 
     public String getGroup() {
         return group;
+    }
+
+    //Сеттеры:
+
+    public ContactData withId(int id) {
+        this.id = id;
+        return this;
+    }
+
+    public ContactData withName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public ContactData withSurname(String surname) {
+        this.surname = surname;
+        return this;
+    }
+
+    public ContactData withTitleContact(String titleContact) {
+        this.titleContact = titleContact;
+        return this;
+    }
+
+    public ContactData withTelMobile(String telMobile) {
+        this.telMobile = telMobile;
+        return this;
+    }
+
+    public ContactData withEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
+    public ContactData withGroup(String group) {
+        this.group = group;
+        return this;
     }
 
 

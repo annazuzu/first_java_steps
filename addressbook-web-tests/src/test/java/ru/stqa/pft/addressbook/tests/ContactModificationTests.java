@@ -14,7 +14,8 @@ public class ContactModificationTests extends TestBase{
 
     public void ensurePreconditions() {
         if(! app.сontact().isThereACheckboxInTable()) {
-            app.сontact().create(new ContactData("Anna", "Maksimova", "Contact1", "9005905555", "maxann89@gmail.com", "test4"), true);
+            app.сontact().create(new ContactData().withName("Anna").withSurname("Maksimova").withTitleContact("Contact1")
+                    .withTelMobile("9005905555").withEmail("maxann89@gmail.com").withGroup("test4"), true);
             app.goTo().homePage();
         }
     }
@@ -23,18 +24,16 @@ public class ContactModificationTests extends TestBase{
 
     public void testContactModification() {
         List<ContactData> before = app.сontact().list();
-//        int before = app.getContactHelper().getContactCount();
         int index = before.size() - 1;
-        ContactData contact = new ContactData(before.get(index).getId(), "Elena", "Kulikova", "Contact2", "9005644444", "kulik@mail.ru", null);
+        ContactData contact = new ContactData().withId(before.get(index).getId()).withName("Elena").withSurname("Kulikova")
+                .withTitleContact("Contact2").withTelMobile("9005644444").withEmail("kulik@mail.ru");
         app.сontact().modify(index, contact);
         app.goTo().homePage();
         List<ContactData> after = app.сontact().list();
-//        int after = app.getContactHelper().getContactCount();
         Assert.assertEquals(after.size(),before.size());
 
         before.remove(index);
         before.add(contact);
-//        Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object> (after));
         Comparator<? super ContactData> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
         before.sort(byId);
         after.sort(byId);

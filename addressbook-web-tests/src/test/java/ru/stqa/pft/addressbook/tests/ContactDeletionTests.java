@@ -13,7 +13,8 @@ public class ContactDeletionTests extends TestBase{
 
   public void ensurePreconditions() {
     if(! app.сontact().isThereACheckboxInTable()) {
-      app.сontact().create(new ContactData("Anna", "Maksimova", "Contact1", "9005905555", "maxann89@gmail.com", "test4"), true);
+      app.сontact().create(new ContactData().withName("Anna").withSurname("Maksimova").withTitleContact("Contact1")
+              .withTelMobile("9005905555").withEmail("maxann89@gmail.com").withGroup("test4"), true);
       app.goTo().homePage();
     }
   }
@@ -22,10 +23,8 @@ public class ContactDeletionTests extends TestBase{
   public void testContactDeletion() throws Exception {
     List<ContactData> before = app.сontact().list();
     int index = before.size() - 1;
-//    int before = app.getContactHelper().getContactCount();
     app.сontact().delete(index);
     List<ContactData> after = app.сontact().list();
-//    int after = app.getContactHelper().getContactCount();
     Assert.assertEquals(after.size(),index);
 
     before.remove(index);
