@@ -17,9 +17,10 @@ public class GroupCreationTests extends TestBase {
 //    Set<GroupData> before = app.group().all();
     GroupData group = new GroupData().withName("test2");
     app.group().create(group);
+    assertThat(app.group().getGroupCount(),equalTo(before.size() + 1));
     Groups after = app.group().all();
 //    Set<GroupData> after = app.group().all();
-    assertThat(after.size(),equalTo(before.size() + 1));
+//    assertThat(after.size(),equalTo(before.size() + 1));
 //    app.getSessionHelper().logout(); //DON'T TOUCH!!!
 
 //    group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()); //из потока объектов типа GroupData получается поток целых чисел.
@@ -34,6 +35,18 @@ public class GroupCreationTests extends TestBase {
     assertThat(after, equalTo(before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
     //из потока объектов типа GroupData получается поток целых чисел.
 //Java сама определяет из списка числе самое большое и преобразует результаты в обычное целое число.
+  }
+
+  @Test (enabled = true)
+  public void testBadGroupCreation() {
+
+    app.goTo().GroupPage();
+    Groups before = app.group().all();
+    GroupData group = new GroupData().withName("test2'");
+    app.group().create(group);
+    assertThat(app.group().getGroupCount(),equalTo(before.size()));
+    Groups after = app.group().all();
+    assertThat(after, equalTo(before));
   }
 
 }

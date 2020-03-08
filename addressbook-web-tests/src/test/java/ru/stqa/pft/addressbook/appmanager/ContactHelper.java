@@ -41,10 +41,18 @@ public class ContactHelper extends HelperBase{
       click(By.linkText("add new"));
     }
 
+    public void create(ContactData contactData, boolean b) {
+        initContactCreation();
+        fillContactForm(contactData, true);
+        submitContactCreation();
+        contactsCache = null;
+    }
+
     public void modify(int index, ContactData contact) {
         initContactModification(index);
         fillContactForm(contact, false);
         submitContactModification();
+
 
     }
 
@@ -52,6 +60,7 @@ public class ContactHelper extends HelperBase{
         initContactModification(contact.getId());
         fillContactForm(contact, false);
         submitContactModification();
+        contactsCache = null;
 
     }
 
@@ -65,6 +74,7 @@ public class ContactHelper extends HelperBase{
         selectCheckboxByID(contact.getId());
         clicktoDeleteButton();
         alertAssept();
+        contactsCache = null;
     }
 
 
@@ -102,12 +112,6 @@ public class ContactHelper extends HelperBase{
         return isElementPresent(By.cssSelector("span#search_count 0"));
     }
 
-    public void create(ContactData contactData, boolean b) {
-        initContactCreation();
-        fillContactForm(contactData, true);
-        submitContactCreation();
-    }
-
     public int getContactCount() {
         return wd.findElements(By.name("selected[]")).size();
     }
@@ -125,17 +129,25 @@ public class ContactHelper extends HelperBase{
         return contacts;
     }
 
+    private Contacts contactsCache = null;
+
     public Contacts /*Set<ContactData>*/ all() {
-        Contacts /*Set<ContactData>*/ contacts = new Contacts()/*new HashSet<>()*/;
+
+        if (contactsCache != null) {
+            return new Contacts(contactsCache);
+        }
+
+        contactsCache = new Contacts();
+//        Contacts /*Set<ContactData>*/ contacts = new Contacts()/*new HashSet<>()*/;
         List<WebElement> elements = wd.findElements(By.name("entry"));
         for (WebElement element : elements) {
             String name = element.findElements(By.tagName("td")).get(2).getText();
             String surname = element.findElements(By.tagName("td")).get(1).getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            contacts.add(new ContactData().withId(id).withName(name).withSurname(surname));
+            contactsCache.add(new ContactData().withId(id).withName(name).withSurname(surname));
         }
 
-        return contacts;
+        return new Contacts(contactsCache);
     }
 
     public Set<ContactData> allset() {
@@ -150,19 +162,5 @@ public class ContactHelper extends HelperBase{
 
         return contacts;
     }
-
-//    public TreeSet<ContactData> set() {
-//        TreeSet<ContactData> contacts = new TreeSet<ContactData>(Comparator.comparing(ContactData::getId));
-//        List<WebElement> elements = wd.findElements(By.name("entry"));
-//        for (WebElement element : elements) {
-//            String name = element.findElements(By.tagName("td")).get(2).getText();
-//            String surname = element.findElements(By.tagName("td")).get(1).getText();
-//            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-//            contacts.add(new ContactData().withId(id).withName(name).withSurname(surname));
-//        }
-//
-//        return contacts;
-//    }
-
 
 }

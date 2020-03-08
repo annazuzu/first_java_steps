@@ -17,10 +17,11 @@ public class ContactCreationTests extends TestBase{
             .withTelMobile("9005905555").withEmail("maxann89@gmail.com").withGroup("test4");
     app.сontact().create(contact, true);
     app.goTo().homePage();
+    assertThat(app.сontact().getContactCount(), equalTo(before.size() + 1));
     Contacts after = app.сontact().all();
 //    Set<ContactData> after = app.сontact().all();
 //    Assert.assertEquals(after.size(),before.size() + 1);
-    assertThat(after.size(), equalTo(before.size() + 1));
+//    assertThat(after.size(), equalTo(before.size() + 1));
 
 //    int maxCont = after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId();
 

@@ -33,11 +33,12 @@ public class ContactModificationTests extends TestBase{
                 .withTitleContact("Contact2").withTelMobile("9005644444").withEmail("kulik@mail.ru");
         app.сontact().modify(contact);
         app.goTo().homePage();
+        assertThat(app.сontact().getContactCount(), equalTo(before.size()));
 
         Contacts after = app.сontact().all();
 //        Set<ContactData> after = app.сontact().allset();
 //        List<ContactData> after = app.сontact().list();
-        assertThat(after.size(), equalTo(before.size()));
+//        assertThat(after.size(), equalTo(before.size()));
 
 //        before.remove(modifiedContact);
 //        before.add(contact);

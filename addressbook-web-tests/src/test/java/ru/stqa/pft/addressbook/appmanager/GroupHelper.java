@@ -57,6 +57,7 @@ public class GroupHelper extends HelperBase {
         initGroupCreation();
         fillGroupForm(group);
         submitGroupCreation();
+        groupCache = null;
         returntoGroupPage();
     }
 
@@ -65,6 +66,7 @@ public class GroupHelper extends HelperBase {
         initGroupModification();
         fillGroupForm(group);
         submitGroupModification();
+        groupCache = null;
         returntoGroupPage();
     }
 
@@ -77,8 +79,11 @@ public class GroupHelper extends HelperBase {
     public void delete(GroupData group) {
         selectGroupByID(group.getId());
         deleteSelectedGroups();
+        groupCache = null;
         returntoGroupPage();
     }
+
+    //после создания, модификации, удаления нужно старый кэш очистить и при новом обращении к методу all() он будет создан заново
 
     public boolean isThereAGroup() {
         return isElementPresent(By.name("selected[]"));
@@ -99,15 +104,24 @@ public class GroupHelper extends HelperBase {
 //        return groups;
 //    }
 
+    private Groups groupCache = null;
+
     public Groups /*Set<GroupData>*/ all() {
-        Groups/*Set<GroupData>*/ groups = new Groups()/*HashSet<GroupData>*/;
+
+        if (groupCache != null) {
+            return new Groups(groupCache); //возвращается объект (копия), а не сам кэш, чтобы не накуралесить в кэше и не
+            // испортить его
+        }
+
+        groupCache = new Groups();
+//        Groups/*Set<GroupData>*/ groups = new Groups()/*HashSet<GroupData>*/;
         List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
         for (WebElement element : elements)  {
             String name = element.getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            groups.add(new GroupData().withId(id).withName(name));
+            groupCache.add(new GroupData().withId(id).withName(name));
         }
-        return groups;
+        return new Groups(groupCache);
     }
 
 
