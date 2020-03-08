@@ -6,12 +6,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
-import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Contacts;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class ContactHelper extends HelperBase{
 
@@ -51,6 +48,13 @@ public class ContactHelper extends HelperBase{
 
     }
 
+    public void modify(ContactData contact) {
+        initContactModification(contact.getId());
+        fillContactForm(contact, false);
+        submitContactModification();
+
+    }
+
     public void delete(int index) {
         selectCheckbox(index);
         clicktoDeleteButton();
@@ -80,8 +84,8 @@ public class ContactHelper extends HelperBase{
         wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
     }
 
-    public void initContactModification(int index) {
-        wd.findElements(By.xpath("//img[@alt='Edit']")).get(index).click();
+    public void initContactModification(int id) {
+        wd.findElement(By.cssSelector("a[href='edit.php?id=" + id + "']")).click();
 //        wd.findElement(By.cssSelector("img[title='Edit']")).get(index)*/click();
     }
 
@@ -121,8 +125,8 @@ public class ContactHelper extends HelperBase{
         return contacts;
     }
 
-    public Set<ContactData> all() {
-        Set<ContactData> contacts = new HashSet<>();
+    public Contacts /*Set<ContactData>*/ all() {
+        Contacts /*Set<ContactData>*/ contacts = new Contacts()/*new HashSet<>()*/;
         List<WebElement> elements = wd.findElements(By.name("entry"));
         for (WebElement element : elements) {
             String name = element.findElements(By.tagName("td")).get(2).getText();
@@ -133,5 +137,32 @@ public class ContactHelper extends HelperBase{
 
         return contacts;
     }
+
+    public Set<ContactData> allset() {
+        Set<ContactData> contacts = new HashSet<ContactData>();
+        List<WebElement> elements = wd.findElements(By.name("entry"));
+        for (WebElement element : elements) {
+            String name = element.findElements(By.tagName("td")).get(2).getText();
+            String surname = element.findElements(By.tagName("td")).get(1).getText();
+            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+            contacts.add(new ContactData().withId(id).withName(name).withSurname(surname));
+        }
+
+        return contacts;
+    }
+
+//    public TreeSet<ContactData> set() {
+//        TreeSet<ContactData> contacts = new TreeSet<ContactData>(Comparator.comparing(ContactData::getId));
+//        List<WebElement> elements = wd.findElements(By.name("entry"));
+//        for (WebElement element : elements) {
+//            String name = element.findElements(By.tagName("td")).get(2).getText();
+//            String surname = element.findElements(By.tagName("td")).get(1).getText();
+//            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+//            contacts.add(new ContactData().withId(id).withName(name).withSurname(surname));
+//        }
+//
+//        return contacts;
+//    }
+
 
 }

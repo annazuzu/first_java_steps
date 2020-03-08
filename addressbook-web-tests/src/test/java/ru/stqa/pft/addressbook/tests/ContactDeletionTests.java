@@ -4,10 +4,14 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.List;
 import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactDeletionTests extends TestBase{
 
@@ -23,15 +27,15 @@ public class ContactDeletionTests extends TestBase{
 
   @Test (enabled = true)
   public void testContactDeletion() throws Exception {
-    Set<ContactData> before = app.сontact().all();
+    Contacts/*Set<ContactData>*/ before = app.сontact().all();
     ContactData deletedContact = before.iterator().next();
 //    int index = before.size() - 1;
     app.сontact().delete(deletedContact);
-    Set<ContactData> after = app.сontact().all();
-    Assert.assertEquals(after.size(),before.size() - 1);
+    Contacts/*Set<ContactData>*/ after = app.сontact().all();
+    assertThat(after.size(), equalTo(before.size() - 1));
 
-    before.remove(deletedContact);
-    Assert.assertEquals(before, after);
+//    before.remove(deletedContact);
+    assertThat(after, equalTo(before.without(deletedContact)));
   }
 
 }
