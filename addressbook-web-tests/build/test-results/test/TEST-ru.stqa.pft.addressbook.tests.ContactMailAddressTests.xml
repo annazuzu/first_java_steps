@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ru.stqa.pft.addressbook.tests.ContactMailAddressTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-03-09T11:15:51" hostname="DESKTOP-48TTPDL" time="0.836">
+<testsuite name="ru.stqa.pft.addressbook.tests.ContactMailAddressTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-03-09T12:49:24" hostname="DESKTOP-48TTPDL" time="0.891">
   <properties/>
-  <testcase name="testMailAddress" classname="ru.stqa.pft.addressbook.tests.ContactMailAddressTests" time="0.836"/>
+  <testcase name="testMailAddress" classname="ru.stqa.pft.addressbook.tests.ContactMailAddressTests" time="0.891"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

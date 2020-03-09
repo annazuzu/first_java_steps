@@ -182,13 +182,13 @@ public class ContactHelper extends HelperBase{
         for (WebElement element : elements) {
             String name = element.findElements(By.tagName("td")).get(2).getText();
             String surname = element.findElements(By.tagName("td")).get(1).getText();
-            String[] phones = element.findElements(By.tagName("td")).get(5).getText().split("\n");
-            String[] emails = element.findElements(By.tagName("td")).get(4).getText().split("\n");
+            String allPhones = element.findElements(By.tagName("td")).get(5).getText();
+            String allEmails = element.findElements(By.tagName("td")).get(4).getText();
+//            String[] phones = element.findElements(By.tagName("td")).get(5).getText().split("\n");
+//            String[] emails = element.findElements(By.tagName("td")).get(4).getText().split("\n");
             String address = element.findElements(By.tagName("td")).get(3).getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            contacts.add(new ContactData().withId(id).withName(name).withSurname(surname).withHomePhone(phones[0]).
-                    withMobilePhone(phones[1]).withWorkPhone(phones[2]).withEmail(emails[0]).withEmail2(emails[1]).
-                    withEmail3(emails[2]).withAddress(address));
+            contacts.add(new ContactData().withId(id).withName(name).withSurname(surname).withAllPhones(allPhones).withAllEmails(allEmails).withAddress(address));
         }
 
         return contacts;

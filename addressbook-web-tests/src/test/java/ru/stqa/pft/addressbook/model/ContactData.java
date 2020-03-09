@@ -17,6 +17,8 @@ public class ContactData {
     private String email;
     private String email2;
     private String email3;
+    private String allPhones;
+    private String allEmails;
 
     //Геттеры:
 
@@ -70,6 +72,14 @@ public class ContactData {
 
     public String getEmail3() {
         return email3;
+    }
+
+    public String getAllPhones() {
+        return allPhones;
+    }
+
+    public String getAllEmails() {
+        return allEmails;
     }
 
     //Сеттеры:
@@ -136,6 +146,16 @@ public class ContactData {
 
     public ContactData withEmail3(String email3) {
         this.email3 = email3;
+        return this;
+    }
+
+    public ContactData withAllPhones(String allPhones) {
+        this.allPhones = allPhones;
+        return this;
+    }
+
+    public ContactData withAllEmails(String allEmails) {
+        this.allEmails = allEmails;
         return this;
     }
 
