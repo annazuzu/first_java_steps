@@ -9,8 +9,14 @@ public class ContactData {
     private String surname;
     private String titleContact;
     private String telMobile;
-    private String email;
     private String group;
+    private String home;
+    private String mobile;
+    private String work;
+    private String address;
+    private String email;
+    private String email2;
+    private String email3;
 
     //Геттеры:
 
@@ -40,6 +46,30 @@ public class ContactData {
 
     public String getGroup() {
         return group;
+    }
+
+    public String getHomePhone() {
+        return home;
+    }
+
+    public String getMobilePhone() {
+        return mobile;
+    }
+
+    public String getWorkPhone() {
+        return work;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getEmail2() {
+        return email2;
+    }
+
+    public String getEmail3() {
+        return email3;
     }
 
     //Сеттеры:
@@ -76,6 +106,36 @@ public class ContactData {
 
     public ContactData withGroup(String group) {
         this.group = group;
+        return this;
+    }
+
+    public ContactData withHomePhone(String home) {
+        this.home = home;
+        return this;
+    }
+
+    public ContactData withMobilePhone(String mobile) {
+        this.mobile = mobile;
+        return this;
+    }
+
+    public ContactData withWorkPhone(String work) {
+        this.work = work;
+        return this;
+    }
+
+    public ContactData withAddress(String address) {
+        this.address = address;
+        return this;
+    }
+
+    public ContactData withEmail2(String email2) {
+        this.email2 = email2;
+        return this;
+    }
+
+    public ContactData withEmail3(String email3) {
+        this.email3 = email3;
         return this;
     }
 

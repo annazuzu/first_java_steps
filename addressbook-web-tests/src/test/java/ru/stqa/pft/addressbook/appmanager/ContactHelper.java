@@ -99,6 +99,24 @@ public class ContactHelper extends HelperBase{
 //        wd.findElement(By.cssSelector("img[title='Edit']")).get(index)*/click();
     }
 
+    public ContactData infoFromEditForm(ContactData contact) {
+        initContactModification(contact.getId());
+        String name = wd.findElement(By.name("firstname")).getAttribute("value");
+        String surname = wd.findElement(By.name("lastname")).getAttribute("value");
+        String home = wd.findElement(By.name("home")).getAttribute("value");
+        String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
+        String work = wd.findElement(By.name("work")).getAttribute("value");
+        String address = wd.findElement(By.name("address")).getAttribute("value");
+        String email = wd.findElement(By.name("email")).getAttribute("value");
+        String email2 = wd.findElement(By.name("email2")).getAttribute("value");
+        String email3 = wd.findElement(By.name("email3")).getAttribute("value");
+        wd.navigate().back();
+        return new ContactData().withId(contact.getId()).withName(name).withSurname(surname).withHomePhone(home).
+                withMobilePhone(mobile).withWorkPhone(work).withAddress(address).withEmail(email).withEmail2(email2).
+                withEmail3(email3).withAddress(address);
+    }
+
+
     public void submitContactModification() {
         click(By.name("update"));
 
@@ -139,15 +157,23 @@ public class ContactHelper extends HelperBase{
 
         contactsCache = new Contacts();
 //        Contacts /*Set<ContactData>*/ contacts = new Contacts()/*new HashSet<>()*/;
+//        Set<ContactData> contacts = new HashSet<ContactData>();
         List<WebElement> elements = wd.findElements(By.name("entry"));
         for (WebElement element : elements) {
             String name = element.findElements(By.tagName("td")).get(2).getText();
             String surname = element.findElements(By.tagName("td")).get(1).getText();
+//            String allPhones = element.findElements(By.tagName("td")).get(5).getText();
+//            String[] phones = element.findElements(By.tagName("td")).get(5).getText().split("\n");//split может использовать
+//            // произвольные регулярные выражения
+//            String allPhones = cells.get(5).get.text();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+//            contacts.add(new ContactData().withId(id).withName(name).withSurname(surname).withHomePhone(phones[0]).
+//                    withMobilePhone(phones[1]).withWorkPhone(phones[2]));
             contactsCache.add(new ContactData().withId(id).withName(name).withSurname(surname));
         }
 
         return new Contacts(contactsCache);
+//        return contacts;
     }
 
     public Set<ContactData> allset() {
@@ -156,8 +182,13 @@ public class ContactHelper extends HelperBase{
         for (WebElement element : elements) {
             String name = element.findElements(By.tagName("td")).get(2).getText();
             String surname = element.findElements(By.tagName("td")).get(1).getText();
+            String[] phones = element.findElements(By.tagName("td")).get(5).getText().split("\n");
+            String[] emails = element.findElements(By.tagName("td")).get(4).getText().split("\n");
+            String address = element.findElements(By.tagName("td")).get(3).getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            contacts.add(new ContactData().withId(id).withName(name).withSurname(surname));
+            contacts.add(new ContactData().withId(id).withName(name).withSurname(surname).withHomePhone(phones[0]).
+                    withMobilePhone(phones[1]).withWorkPhone(phones[2]).withEmail(emails[0]).withEmail2(emails[1]).
+                    withEmail3(emails[2]).withAddress(address));
         }
 
         return contacts;
