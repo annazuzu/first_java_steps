@@ -15,7 +15,7 @@ public class ContactDeletionTests extends TestBase{
   public void ensurePreconditions() {
     if(! app.сontact().isThereACheckboxInTable()) {
       app.сontact().create(new ContactData().withName("Anna").withSurname("Maksimova").withTitleContact("Contact1")
-              .withTelMobile("9005905555").withEmail("maxann89@gmail.com").withGroup("test4"), true);
+              .withTelMobile("9005905555").withEmail("maxann89@gmail.com").withGroup("test4")/*, true*/);
       app.goTo().homePage();
     }
   }
