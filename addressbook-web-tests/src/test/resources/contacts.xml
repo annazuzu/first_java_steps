@@ -1,0 +1,72 @@
+<list>
+  <contact>
+    <name>name 0</name>
+    <surname>surname 0</surname>
+    <mobile>mobile phone 0</mobile>
+    <address>address for correspondence 0</address>
+    <email>email 0</email>
+  </contact>
+  <contact>
+    <name>name 1</name>
+    <surname>surname 1</surname>
+    <mobile>mobile phone 1</mobile>
+    <address>address for correspondence 1</address>
+    <email>email 1</email>
+  </contact>
+  <contact>
+    <name>name 2</name>
+    <surname>surname 2</surname>
+    <mobile>mobile phone 2</mobile>
+    <address>address for correspondence 2</address>
+    <email>email 2</email>
+  </contact>
+  <contact>
+    <name>name 3</name>
+    <surname>surname 3</surname>
+    <mobile>mobile phone 3</mobile>
+    <address>address for correspondence 3</address>
+    <email>email 3</email>
+  </contact>
+  <contact>
+    <name>name 4</name>
+    <surname>surname 4</surname>
+    <mobile>mobile phone 4</mobile>
+    <address>address for correspondence 4</address>
+    <email>email 4</email>
+  </contact>
+  <contact>
+    <name>name 5</name>
+    <surname>surname 5</surname>
+    <mobile>mobile phone 5</mobile>
+    <address>address for correspondence 5</address>
+    <email>email 5</email>
+  </contact>
+  <contact>
+    <name>name 6</name>
+    <surname>surname 6</surname>
+    <mobile>mobile phone 6</mobile>
+    <address>address for correspondence 6</address>
+    <email>email 6</email>
+  </contact>
+  <contact>
+    <name>name 7</name>
+    <surname>surname 7</surname>
+    <mobile>mobile phone 7</mobile>
+    <address>address for correspondence 7</address>
+    <email>email 7</email>
+  </contact>
+  <contact>
+    <name>name 8</name>
+    <surname>surname 8</surname>
+    <mobile>mobile phone 8</mobile>
+    <address>address for correspondence 8</address>
+    <email>email 8</email>
+  </contact>
+  <contact>
+    <name>name 9</name>
+    <surname>surname 9</surname>
+    <mobile>mobile phone 9</mobile>
+    <address>address for correspondence 9</address>
+    <email>email 9</email>
+  </contact>
+</list>
