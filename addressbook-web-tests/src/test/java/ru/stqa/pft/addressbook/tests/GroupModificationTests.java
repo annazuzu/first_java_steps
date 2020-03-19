@@ -1,5 +1,7 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.GroupData;
@@ -21,6 +23,7 @@ public class GroupModificationTests extends TestBase {
 
     @Test (enabled = true)
     public void testGroupModification() {
+
         Groups/*Set<GroupData>*/ before = app.group().all();
         GroupData modifedGroup = before.iterator().next();
 //        int index = before.size() - 1;
@@ -39,6 +42,7 @@ public class GroupModificationTests extends TestBase {
 
 //        Assert.assertEquals(before, after);
         assertThat(after, equalTo(before.without(modifedGroup).withAdded(group)));
+
     }
 
 }

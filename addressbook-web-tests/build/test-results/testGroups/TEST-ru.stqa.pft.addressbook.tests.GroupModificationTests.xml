@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.stqa.pft.addressbook.tests.GroupModificationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-03-19T13:46:47" hostname="DESKTOP-48TTPDL" time="5.667">
+  <properties/>
+  <testcase name="testGroupModification" classname="ru.stqa.pft.addressbook.tests.GroupModificationTests" time="5.667"/>
+  <system-out><![CDATA[16:46:43.317 [Test worker] INFO  r.s.pft.addressbook.tests.TestBase - Start test testGroupModification with parameters []
+16:46:53.458 [Test worker] INFO  r.s.pft.addressbook.tests.TestBase - Stop test testGroupModification
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
