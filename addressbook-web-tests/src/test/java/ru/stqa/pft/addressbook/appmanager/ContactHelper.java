@@ -3,12 +3,13 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
-import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class ContactHelper extends HelperBase{
 
@@ -55,8 +56,6 @@ public class ContactHelper extends HelperBase{
         initContactModification(index);
         fillContactForm(contact/*, false*/);
         submitContactModification();
-
-
     }
 
     public void modify(ContactData contact) {
@@ -99,7 +98,6 @@ public class ContactHelper extends HelperBase{
 
     public void initContactModification(int id) {
         wd.findElement(By.cssSelector("a[href='edit.php?id=" + id + "']")).click();
-//        wd.findElement(By.cssSelector("img[title='Edit']")).get(index)*/click();
     }
 
     public ContactData infoFromEditForm(ContactData contact) {
@@ -159,24 +157,15 @@ public class ContactHelper extends HelperBase{
         }
 
         contactsCache = new Contacts();
-//        Contacts /*Set<ContactData>*/ contacts = new Contacts()/*new HashSet<>()*/;
-//        Set<ContactData> contacts = new HashSet<ContactData>();
         List<WebElement> elements = wd.findElements(By.name("entry"));
         for (WebElement element : elements) {
             String name = element.findElements(By.tagName("td")).get(2).getText();
             String surname = element.findElements(By.tagName("td")).get(1).getText();
-//            String allPhones = element.findElements(By.tagName("td")).get(5).getText();
-//            String[] phones = element.findElements(By.tagName("td")).get(5).getText().split("\n");//split может использовать
-//            // произвольные регулярные выражения
-//            String allPhones = cells.get(5).get.text();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-//            contacts.add(new ContactData().withId(id).withName(name).withSurname(surname).withHomePhone(phones[0]).
-//                    withMobilePhone(phones[1]).withWorkPhone(phones[2]));
             contactsCache.add(new ContactData().withId(id).withName(name).withSurname(surname));
         }
 
         return new Contacts(contactsCache);
-//        return contacts;
     }
 
     public Set<ContactData> allset() {
@@ -187,13 +176,10 @@ public class ContactHelper extends HelperBase{
             String surname = element.findElements(By.tagName("td")).get(1).getText();
             String allPhones = element.findElements(By.tagName("td")).get(5).getText();
             String allEmails = element.findElements(By.tagName("td")).get(4).getText();
-//            String[] phones = element.findElements(By.tagName("td")).get(5).getText().split("\n");
-//            String[] emails = element.findElements(By.tagName("td")).get(4).getText().split("\n");
             String address = element.findElements(By.tagName("td")).get(3).getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
             contacts.add(new ContactData().withId(id).withName(name).withSurname(surname).withAllPhones(allPhones).withAllEmails(allEmails).withAddress(address));
         }
-
         return contacts;
     }
 

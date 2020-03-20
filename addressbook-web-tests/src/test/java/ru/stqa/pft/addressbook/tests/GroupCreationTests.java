@@ -23,25 +23,19 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class GroupCreationTests extends TestBase {
 
-    Logger logger = LoggerFactory.getLogger(GroupCreationTests.class);
-
   @DataProvider
   public Iterator<Object[]> validGroupsFromXml() throws IOException {
-//    List<Object[]> list = new ArrayList<Object[]>();
       try (BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/groups.xml")))) {
           String xml = "";
           String line = reader.readLine();
           while (line != null) {
               xml += line;
-//          String[] split = line.split(",");
-//          list.add(new Object[] {new GroupData().withName(split[0]).withHeader(split[1]).withFooter(split[2])});
               line = reader.readLine();
           }
           XStream xstream = new XStream();
           xstream.processAnnotations(GroupData.class);
           List<GroupData> groups = (List<GroupData>)xstream.fromXML(xml);
           return groups.stream().map((g) -> new Object []{g}).collect(Collectors.toList()).iterator();
-//    return list.iterator();
       }
   }
 
@@ -63,34 +57,13 @@ public class GroupCreationTests extends TestBase {
   @Test(dataProvider = "validGroupsFromJson")
   public void testGroupCreation(GroupData group) {
 
-
-    //    String[] names = new String[] {"test1", "test2", "test3"}; //"параметрицация" тестов циклом
-//    for (String name : names) {
       app.goTo().GroupPage();
       Groups before = app.group().all();
-//    Set<GroupData> before = app.group().all();
-//      GroupData group = new GroupData().withName(/*"test2"*/ name);
       app.group().create(group);
       assertThat(app.group().getGroupCount(),equalTo(before.size() + 1));
       Groups after = app.group().all();
-//    Set<GroupData> after = app.group().all();
-//    assertThat(after.size(),equalTo(before.size() + 1));
 //    app.getSessionHelper().logout(); //DON'T TOUCH!!!
-
-//    group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()); //из потока объектов типа GroupData получается поток целых чисел.
-//Java сама определяет из списка числе самое большое и преобразует результаты в обычное целое число.
-//    before.add(group);
-
-//    Comparator<? super GroupData> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
-//    before.sort(byId);
-//    after.sort(byId);
-
-//    Assert.assertEquals(before, after);
       assertThat(after, equalTo(before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
-      //из потока объектов типа GroupData получается поток целых чисел.
-//Java сама определяет из списка числе самое большое и преобразует результаты в обычное целое число.
-//    }
-
   }
 
   @Test (enabled = false)

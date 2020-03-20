@@ -28,11 +28,6 @@ public class GroupDataGenerator {
 
     public static void main (String[] args) throws IOException {
         GroupDataGenerator generator = new GroupDataGenerator();
-//        new JCommander(generator, args);
-//        JCommander.newBuilder()
-//                .addObject(generator)
-//                .build()
-//                .parse(args);
         JCommander jCommander = new JCommander(generator);
         try {
             jCommander.parse(args);
@@ -41,12 +36,6 @@ public class GroupDataGenerator {
             return;
         }
         generator.run();
-//        int count = Integer.parseInt(args[0]); //принимаем массив строк и преобразуем в число
-////        File file = new File(args[1]);
-
-//        List<GroupData> groups = generateGroups(count);
-//        save(groups, file);
-
     }
 
     private void run() throws IOException {
@@ -60,7 +49,6 @@ public class GroupDataGenerator {
         } else {
             System.out.println("unrecognised format " + format);
         }
-//        save(groups, new File (file));
     }
 
     private void saveAsJson (List<GroupData> groups, File file) throws IOException {
@@ -69,29 +57,23 @@ public class GroupDataGenerator {
         try (Writer writer = new FileWriter(file)) {
             writer.write(json);
         }
-//        writer.close();
     }
 
     private void saveAsXml(List<GroupData> groups, File file) throws IOException {
         XStream xstream = new XStream();
-//        xstream.alias("group", GroupData.class);
         xstream.processAnnotations(GroupData.class);
         String xml = xstream.toXML(groups);
         try (Writer writer = new FileWriter(file)) {
             writer.write(xml);
         }
-//        writer.close();
     }
 
     private void saveAsCsv(List<GroupData> groups, File file) throws IOException {
-//        System.out.println(new File(".").getAbsolutePath());
+
         try (Writer writer = new FileWriter(file)) {
             for (GroupData group : groups)
                 writer.write(String.format("%s,%s,%s\n", group.getName(), group.getHeader(), group.getFooter()));
         }
-
-//        writer.close();
-
     }
 
     private List<GroupData> generateGroups(int count) {

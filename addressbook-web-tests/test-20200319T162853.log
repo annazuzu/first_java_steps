@@ -1,6 +1,0 @@
-9358 [Test worker] INFO  r.s.pft.addressbook.tests.TestBase - Start test testGroupCreation
-18292 [Test worker] INFO  r.s.pft.addressbook.tests.TestBase - Stop test testGroupCreation
-18292 [Test worker] INFO  r.s.pft.addressbook.tests.TestBase - Start test testGroupCreation
-23289 [Test worker] INFO  r.s.pft.addressbook.tests.TestBase - Stop test testGroupCreation
-23289 [Test worker] INFO  r.s.pft.addressbook.tests.TestBase - Start test testGroupCreation
-28295 [Test worker] INFO  r.s.pft.addressbook.tests.TestBase - Stop test testGroupCreation

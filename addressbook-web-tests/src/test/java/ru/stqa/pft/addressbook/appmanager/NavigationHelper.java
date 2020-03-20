@@ -8,7 +8,6 @@ public class NavigationHelper extends HelperBase {
 
     public NavigationHelper(WebDriver wd) {
         super(wd);
-
     }
 
     public void GroupPage() {
@@ -18,15 +17,6 @@ public class NavigationHelper extends HelperBase {
             return;
         }
         click(By.linkText("groups"));
-
-        //разворот:
-//        if(! isElementPresent(By.tagName("h1"))
-//                || ! wd.findElement(By.tagName("h1")).getText().equals("Groups")
-//                || ! isElementPresent(By.name("new"))) {
-//
-//           click(By.linkText("groups"));
-//        }
-
     }
 
     public void homePage() {

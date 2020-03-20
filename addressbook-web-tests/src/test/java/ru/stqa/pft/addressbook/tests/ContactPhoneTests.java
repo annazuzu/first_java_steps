@@ -17,7 +17,6 @@ public class ContactPhoneTests extends TestBase {
         ContactData contact = app.сontact().allset().iterator().next(); //загружаем список контактов, выбираем контакт случайным образом
         ContactData contactInfoFromEditForm = app.сontact().infoFromEditForm(contact); //вспомогательный метод, загружающий
         // информацию о контакте из формы на редактирование
-
         assertThat(contact.getAllPhones(), equalTo(mergePhones(contactInfoFromEditForm)));
 
     }
@@ -30,7 +29,8 @@ public class ContactPhoneTests extends TestBase {
     }
 
     public static String cleanned (String phone) {
-        return phone.replaceAll("\\s", "").replaceAll("[-()]",""); //replaceAll() - заменить все вхождения чего-то на что-то
+        return phone.replaceAll("\\s", "").replaceAll("[-()]","");
+        //replaceAll() - заменить все вхождения чего-то на что-то
     }
 
 }

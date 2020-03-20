@@ -12,24 +12,17 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class ContactEmailTests extends TestBase {
 
     @Test
-
     public void testContactEmails () {
 
         app.goTo().homePage();
         ContactData contact = app.сontact().allset().iterator().next();
         ContactData contactInfoFromEditForm = app.сontact().infoFromEditForm(contact);
-
-//        assertThat(contact.getEmail(), equalTo(contactInfoFromEditForm.getEmail()));
-//        assertThat(contact.getEmail2(), equalTo(contactInfoFromEditForm.getEmail2()));
-//        assertThat(contact.getEmail3(), equalTo(contactInfoFromEditForm.getEmail3()));
-
         assertThat(contact.getAllEmails(), equalTo(mergeEmails(contactInfoFromEditForm)));
     }
 
     private String mergeEmails(ContactData contact) {
         return Arrays.asList(contact.getEmail(),contact.getEmail2(),contact.getEmail3()).stream().
                 filter((s) -> ! s.equals("")).
-                /*map(ContactPhoneTests::cleanned).*/
                 collect(Collectors.joining("\n"));
     }
 

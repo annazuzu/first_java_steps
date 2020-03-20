@@ -19,19 +19,5 @@
     "mobile": "mobile phone 2",
     "address": "address for correspondence 2",
     "email": "email 2"
-  },
-  {
-    "name": "name 3",
-    "surname": "surname 3",
-    "mobile": "mobile phone 3",
-    "address": "address for correspondence 3",
-    "email": "email 3"
-  },
-  {
-    "name": "name 4",
-    "surname": "surname 4",
-    "mobile": "mobile phone 4",
-    "address": "address for correspondence 4",
-    "email": "email 4"
   }
 ]

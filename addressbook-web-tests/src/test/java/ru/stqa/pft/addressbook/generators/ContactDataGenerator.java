@@ -38,11 +38,6 @@ public class ContactDataGenerator {
             return;
         }
         generator.run();
-//        int count = Integer.parseInt(args[0]);
-//        File file = new File(args[1]);
-
-//        List<ContactData> contacts = generateContacts(count);
-//        save(contacts, file);
     }
 
     private void run() throws IOException {
@@ -56,7 +51,6 @@ public class ContactDataGenerator {
         } else {
             System.out.println("unrecognised format " + format);
         }
-
     }
 
     private void saveAsJson(List<ContactData> contacts, File file) throws IOException {
@@ -65,7 +59,6 @@ public class ContactDataGenerator {
         try (Writer writer = new FileWriter(file)) {
             writer.write(json);
         }
-//        writer.close();
     }
 
     private void saveAsXml(List<ContactData> contacts, File file) throws IOException {
@@ -75,7 +68,6 @@ public class ContactDataGenerator {
         try (Writer writer = new FileWriter(file)) {
             writer.write(xml);
         }
-//        writer.close();
     }
 
     private void saveAsCsv(List<ContactData> contacts, File file) throws IOException {
@@ -86,7 +78,6 @@ public class ContactDataGenerator {
                         contact.getMobilePhone(),contact.getEmail()));
             }
         }
-//        writer.close();
     }
 
     private List<ContactData> generateContacts(int count) {
