@@ -8,4 +8,10 @@
             <class name="ru.stqa.pft.addressbook.tests.GroupDeletionTests" />
         </classes>
     </test>
+
+    <test name="Other" >
+        <classes>
+            <class name="ru.stqa.pft.addressbook.tests.DbConnectionTest" />
+        </classes>
+    </test>
 </suite>
