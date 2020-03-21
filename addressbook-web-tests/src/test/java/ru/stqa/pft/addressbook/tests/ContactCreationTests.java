@@ -55,15 +55,18 @@ public class ContactCreationTests extends TestBase {
 
   @Test (dataProvider = "validContactsFromJson")
   public void testContactCreation(ContactData contact) throws Exception {
-    Contacts before = app.сontact().all();
+
+    Contacts before = app.db().contacts();
+//    Contacts before = app.сontact().all();
     app.сontact().create(contact/*, true*/);
     app.goTo().homePage();
     assertThat(app.сontact().getContactCount(), equalTo(before.size() + 1));
-    Contacts after = app.сontact().all();
+    Contacts after = app.db().contacts();
+//    Contacts after = app.сontact().all();
     assertThat(after, equalTo(before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
   }
 
-//  @Test (enabled = false)
+//  @Test (enabled = true)
 //  public void testCurrentDir() {
 //    File currentDir = new File(".");
 //    System.out.println(currentDir.getAbsolutePath());

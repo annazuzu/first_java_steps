@@ -114,7 +114,7 @@ public class ContactHelper extends HelperBase{
         wd.navigate().back();
         return new ContactData().withId(contact.getId()).withName(name).withSurname(surname).withHomePhone(home).
                 withMobilePhone(mobile).withWorkPhone(work).withAddress(address).withEmail(email).withEmail2(email2).
-                withEmail3(email3).withAddress(address);
+                withEmail3(email3);
     }
 
 
@@ -178,7 +178,8 @@ public class ContactHelper extends HelperBase{
             String allEmails = element.findElements(By.tagName("td")).get(4).getText();
             String address = element.findElements(By.tagName("td")).get(3).getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            contacts.add(new ContactData().withId(id).withName(name).withSurname(surname).withAllPhones(allPhones).withAllEmails(allEmails).withAddress(address));
+            contacts.add(new ContactData().withId(id).withName(name).withSurname(surname).withAllPhones(allPhones).
+                    withAllEmails(allEmails).withAddress(address));
         }
         return contacts;
     }

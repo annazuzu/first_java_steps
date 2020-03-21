@@ -22,6 +22,7 @@ public class ApplicationManager {
     private NavigationHelper navigationHelper;
     public GroupHelper groupHelper;
     private String browser;
+    private DbHelper dbHelper;
 
     public ApplicationManager(String browser) {
         this.browser = browser;
@@ -34,6 +35,9 @@ public class ApplicationManager {
         //часть имени конфигурационного файла
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
         //загружаем. В качесте параметра нужно передать ридер
+
+        dbHelper = new DbHelper();
+
         if(browser.equals(BrowserType.CHROME)) {
             wd = new ChromeDriver();
         } else if (browser.equals(BrowserType.FIREFOX)) {
@@ -42,13 +46,14 @@ public class ApplicationManager {
             wd = new InternetExplorerDriver();
         }
 //        wd = new ChromeDriver();
-        wd.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        wd.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         wd.get(properties.getProperty("web.baseUrl"));/*http://localhost/addressbook"*/
         groupHelper = new GroupHelper(wd);
         navigationHelper = new NavigationHelper(wd);
         sessionHelper = new SessionHelper(wd);
         contactHelper = new ContactHelper(wd);
         sessionHelper.login(properties.getProperty("web.adminLogin"), properties.getProperty("web.adminPassword"));
+
     }
 
 
@@ -71,5 +76,9 @@ public class ApplicationManager {
 
     public ContactHelper сontact() {
         return contactHelper;
+    }
+
+    public DbHelper db() {
+        return dbHelper;
     }
 }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.stqa.pft.addressbook.tests.ContactDeletionTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-03-21T23:15:36" hostname="DESKTOP-48TTPDL" time="3.644">
+  <properties/>
+  <testcase name="testContactDeletion" classname="ru.stqa.pft.addressbook.tests.ContactDeletionTests" time="3.644"/>
+  <system-out><![CDATA[02:15:35.754 [Test worker] INFO  r.s.pft.addressbook.tests.TestBase - Start test testContactDeletion with parameters []
+Hibernate: select contactdat0_.id as id1_0_, contactdat0_.address as address2_0_, contactdat0_.email as email3_0_, contactdat0_.mobile as mobile4_0_, contactdat0_.firstname as firstnam5_0_, contactdat0_.lastname as lastname6_0_ from addressbook contactdat0_ where deprecated='0000-00-00'
+Hibernate: select contactdat0_.id as id1_0_, contactdat0_.address as address2_0_, contactdat0_.email as email3_0_, contactdat0_.mobile as mobile4_0_, contactdat0_.firstname as firstnam5_0_, contactdat0_.lastname as lastname6_0_ from addressbook contactdat0_ where deprecated='0000-00-00'
+Hibernate: select contactdat0_.id as id1_0_, contactdat0_.address as address2_0_, contactdat0_.email as email3_0_, contactdat0_.mobile as mobile4_0_, contactdat0_.firstname as firstnam5_0_, contactdat0_.lastname as lastname6_0_ from addressbook contactdat0_ where deprecated='0000-00-00'
+02:15:39.857 [Test worker] INFO  r.s.pft.addressbook.tests.TestBase - Stop test testContactDeletion
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
