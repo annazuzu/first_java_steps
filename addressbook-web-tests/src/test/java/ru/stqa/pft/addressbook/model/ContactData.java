@@ -3,35 +3,75 @@ package ru.stqa.pft.addressbook.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 import java.util.Objects;
 
 @XStreamAlias("contact")
+@Entity
+@Table(name = "addressbook")
 public class ContactData {
     @XStreamOmitField()
+    @Id
+    @Column(name = "id")
     private int id = 0;
-    @Expose
-    private String name;
-    @Expose
-    private String surname;
-    private String titleContact;
-    private String telMobile;
-    private String group;
-    private String home;
-    @Expose
-    private String mobile;
-    private String work;
-    @Expose
-    private String address;
-    @Expose
-    private String email;
-    private String email2;
-    private String email3;
-    private String allPhones;
-    private String allEmails;
-    private File photo;
 
+    @Expose
+    @Column(name = "firstname")
+    private String name;
+
+    @Expose
+    @Column(name = "lastname")
+    private String surname;
+
+    @Transient
+    private String titleContact;
+
+    @Transient
+    private String telMobile;
+
+    @Transient
+    private String group;
+
+    @Column(name = "home")
+    @Type(type = "text")
+    private String home;
+
+    @Expose
+    @Column(name = "mobile")
+    @Type(type = "text")
+    private String mobile;
+
+    @Column(name = "work")
+    @Type(type = "text")
+    private String work;
+
+    @Expose
+    @Transient
+    private String address;
+
+    @Expose
+    @Transient
+    private String email;
+
+    @Transient
+    private String email2;
+
+    @Transient
+    private String email3;
+
+    @Transient
+    private String allPhones;
+
+    @Transient
+    private String allEmails;
+
+    @Column(name = "photo")
+    @Type(type = "text")
+    private String photo;
+//    private File photo;
 
     //Геттеры:
 
@@ -96,7 +136,7 @@ public class ContactData {
     }
 
     public File getPhoto() {
-        return photo;
+        return new File (photo);
     }
 
     //Сеттеры:
@@ -177,7 +217,7 @@ public class ContactData {
     }
 
     public ContactData withPhoto(File photo) {
-        this.photo = photo;
+        this.photo = photo.getPath();
         return this;
     }
 
