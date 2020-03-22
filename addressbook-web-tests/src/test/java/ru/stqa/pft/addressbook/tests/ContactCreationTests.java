@@ -57,13 +57,18 @@ public class ContactCreationTests extends TestBase {
   public void testContactCreation(ContactData contact) throws Exception {
 
     Contacts before = app.db().contacts();
+    verifyContactListInUI();
 //    Contacts before = app.сontact().all();
+
     app.сontact().create(contact/*, true*/);
     app.goTo().homePage();
+
     assertThat(app.сontact().getContactCount(), equalTo(before.size() + 1));
+
     Contacts after = app.db().contacts();
 //    Contacts after = app.сontact().all();
     assertThat(after, equalTo(before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
+    verifyContactListInUI();
   }
 
 //  @Test (enabled = true)

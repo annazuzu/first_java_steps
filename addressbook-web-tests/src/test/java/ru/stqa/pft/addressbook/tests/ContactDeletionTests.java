@@ -30,13 +30,17 @@ public class ContactDeletionTests extends TestBase{
   @Test (enabled = true)
   public void testContactDeletion() throws Exception {
     Contacts before = app.db().contacts();
+    verifyContactListInUI();
 //    Contacts before = app.сontact().all();
     ContactData deletedContact = before.iterator().next();
     app.сontact().delete(deletedContact);
+
     assertThat(app.сontact().getContactCount(), equalTo(before.size() - 1));
+
     Contacts after = app.db().contacts();
 //    Contacts after = app.сontact().all();
     assertThat(after, equalTo(before.without(deletedContact)));
+    verifyContactListInUI();
   }
 
 }

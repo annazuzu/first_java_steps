@@ -24,13 +24,18 @@ public class GroupDeletionTests extends TestBase{
   public void testGroupDeletion() throws Exception {
 
     Groups before = app.db().groups();
+    verifyGroupListInUI();
 //    Groups /*Set<GroupData>*/ before = app.group().all();
+
     GroupData deletedGroup = before.iterator().next();
     app.group().delete(deletedGroup);
+
     assertThat(app.group().getGroupCount(),equalTo(before.size() - 1));
+
     Groups after = app.db().groups();
 //    Groups /*Set<GroupData>*/ after = app.group().all();
     assertThat(after, equalTo(before.without(deletedGroup)));
+    verifyGroupListInUI();
   }
 
 }

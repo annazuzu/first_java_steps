@@ -3,8 +3,6 @@ package ru.stqa.pft.addressbook.tests;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.thoughtworks.xstream.XStream;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.GroupData;
@@ -73,13 +71,18 @@ public class GroupCreationTests extends TestBase {
 
     app.goTo().GroupPage();
     Groups before = app.db().groups();
+    verifyGroupListInUI();
 //    Groups before = app.group().all();
+
     GroupData group = new GroupData().withName("test2'");
     app.group().create(group);
+
     assertThat(app.group().getGroupCount(),equalTo(before.size()));
+
     Groups after = app.db().groups();
 //    Groups after = app.group().all();
     assertThat(after, equalTo(before));
+    verifyGroupListInUI();
   }
 
 }

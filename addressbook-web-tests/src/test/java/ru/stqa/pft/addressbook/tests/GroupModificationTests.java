@@ -24,16 +24,21 @@ public class GroupModificationTests extends TestBase {
     public void testGroupModification() {
 
         Groups before = app.db().groups();
+        verifyGroupListInUI();
 //        Groups/*Set<GroupData>*/ before = app.group().all();
+
         GroupData modifedGroup = before.iterator().next();
         GroupData group = new GroupData()
                 .withId(modifedGroup.getId()).withName("test4").withHeader("test5").withFooter("test6");
         app.goTo().GroupPage();
         app.group().modify(group);
+
         assertThat(app.group().getGroupCount(),equalTo(before.size()));
+
         Groups after = app.db().groups();
 //        Groups/*Set<GroupData>*/ after = app.group().all();
         assertThat(after, equalTo(before.without(modifedGroup).withAdded(group)));
+        verifyGroupListInUI();
     }
 
 }
