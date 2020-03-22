@@ -16,13 +16,13 @@ public class ContactModificationTests extends TestBase{
 
         if (app.db().contacts().size() == 0) {
                 app.сontact().create(new ContactData().withName("Anna").withSurname("Maksimova").withTitleContact("Contact1")
-                        .withMobilePhone("9005905555").withEmail("maxann89@gmail.com").withAddress("Lenin str, Erepenin").withGroup("test4")/*, true*/);
+                        .withMobilePhone("9005905555").withEmail("maxann89@gmail.com").withAddress("Lenin str, Erepenin"), true);
                 app.goTo().homePage();
         }
 
 //        if(! app.сontact().isThereACheckboxInTable()) {
-//            app.сontact().create(new ContactData().withName("Anna").withSurname("Maksimova").withTitleContact("Contact1")
-//                    .withTelMobile("9005905555").withEmail("maxann89@gmail.com").withGroup("test4")/*, true*/);
+//            app.сontact().create((new ContactData().withName("Anna").withSurname("Maksimova").withTitleContact("Contact1")
+////                    .withTelMobile("9005905555").withEmail("maxann89@gmail.com").withGroup("test4")/*, true*/);withGroup("test4")/*, true*/);
 //            app.goTo().homePage();
 //        }
     }

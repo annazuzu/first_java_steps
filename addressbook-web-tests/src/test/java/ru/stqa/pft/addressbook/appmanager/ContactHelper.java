@@ -3,6 +3,8 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 
@@ -22,7 +24,7 @@ public class ContactHelper extends HelperBase{
     }
 
 
-    public void fillContactForm(ContactData contactData/*, boolean creation*/) {
+    public void fillContactForm(ContactData contactData, boolean creation) {
         type(By.name("firstname"),contactData.getName() );
         type(By.name("lastname"), contactData.getSurname());
         attach(By.name("photo"), contactData.getPhoto());
@@ -31,13 +33,22 @@ public class ContactHelper extends HelperBase{
         type(By.name("mobile"), contactData.getMobilePhone());
         type(By.name("email"), contactData.getEmail());
 
-/*        if(creation) {
-            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup()); //Это карточка создания контакта. Если этого элемента
-            // нет на странице создания контакта, то тест упадет и он должен упасть.
+//        if(creation) {
+//            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup()); //Это карточка создания контакта. Если этого элемента
+//            // нет на странице создания контакта, то тест упадет и он должен упасть.
+//        } else {
+//            Assert.assertFalse(isElementPresent(By.name("new_group"))); // Это карточка редактирования (модификации) контакта. Проверка того,
+//            //что этого элемента быть не должно на форме модификации контакта.
+//        }
+
+        if(creation) {
+            if (contactData.getGroups().size() > 0) {
+                Assert.assertTrue(contactData.getGroups().size() == 1); // если указана одна группа, то мы будем пытаться её выбрать из списка
+                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(String.valueOf(contactData.getGroups().iterator().next().getName()));
+            }
         } else {
-            Assert.assertFalse(isElementPresent(By.name("new_group"))); // Это карточка редактирования (модификации) контакта. Проверка того,
-            //что этого элемента быть не должно на форме модификации контакта.
-        }*/
+            Assert.assertFalse(isElementPresent(By.name("new_group")));
+        }
 
     }
 
@@ -45,22 +56,22 @@ public class ContactHelper extends HelperBase{
       click(By.linkText("add new"));
     }
 
-    public void create(ContactData contactData/*, boolean b*/) {
+    public void create(ContactData contactData, boolean b) {
         initContactCreation();
-        fillContactForm(contactData/*, true*/);
+        fillContactForm(contactData, true);
         submitContactCreation();
         contactsCache = null;
     }
 
     public void modify(int index, ContactData contact) {
         initContactModification(index);
-        fillContactForm(contact/*, false*/);
+        fillContactForm(contact, false);
         submitContactModification();
     }
 
     public void modify(ContactData contact) {
         initContactModification(contact.getId());
-        fillContactForm(contact/*, false*/);
+        fillContactForm(contact, false);
         submitContactModification();
         contactsCache = null;
 
