@@ -7,6 +7,8 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -134,19 +136,20 @@ public class ContactHelper extends HelperBase{
 
     }
 //--------------------------------------
-    public void selectContactAndAddToGroup (ContactData contact) {
-//        selectCheckbox(contact.getId());
+    public void selectContactAndAddToGroup (Groups groups, Contacts contacts) {
 
-        wd.findElement(By.id("195")).click();
+       ContactData contact = contacts.iterator().next();
+       GroupData group = groups.iterator().next();
+
+        selectCheckboxByID(contact.getId());
         wd.findElement(By.name("to_group")).click();
-        new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(String.valueOf(contact.getGroups().iterator().next().getName()));
+        new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(String.valueOf(group.getName()));
         wd.findElement(By.name("to_group")).click();
         wd.findElement(By.name("add")).click();
-        wd.findElement(By.linkText("group page \"test 0\"")).click();
+        wd.findElement(By.linkText("group page \"" + group.getName() + "\"")).click();
         wd.findElement(By.name("group")).click();
         new Select(wd.findElement(By.name("group"))).selectByVisibleText("[all]");
         wd.findElement(By.name("group")).click();
-
     }
 
     public void testRemoveGroup(ContactData contact) throws Exception {
