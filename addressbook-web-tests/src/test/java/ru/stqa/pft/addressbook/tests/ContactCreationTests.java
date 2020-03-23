@@ -54,13 +54,13 @@ public class ContactCreationTests extends TestBase {
     }
   }
 
-  @Test (/*dataProvider = "validContactsFromJson"*/)
-  public void testContactCreation(/*ContactData contact*/) throws Exception {
+  @Test (dataProvider = "validContactsFromJson")
+  public void testContactCreation(ContactData contact) throws Exception {
 
     Groups groups = app.db().groups();
 //    File photo = new File("src/test/resources/photo.jpg");
-    ContactData contact = new ContactData().withName("Anna").withSurname("Maksimova").withTitleContact("Contact1")
-            .withMobilePhone("9005905555").withEmail("maxann89@gmail.com").withAddress("Lenin str, Erepenin").inGroup(groups.iterator().next());
+//    ContactData contact = new ContactData().withName("Anna").withSurname("Maksimova").withTitleContact("Contact1")
+//            .withMobilePhone("9005905555").withEmail("maxann89@gmail.com").withAddress("Lenin str, Erepenin").inGroup(groups.iterator().next());
 
     Contacts before = app.db().contacts();
 //    verifyContactListInUI();

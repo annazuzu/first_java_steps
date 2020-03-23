@@ -133,6 +133,36 @@ public class ContactHelper extends HelperBase{
         click(By.name("update"));
 
     }
+//--------------------------------------
+    public void selectContactAndAddToGroup (ContactData contact) {
+//        selectCheckbox(contact.getId());
+
+        wd.findElement(By.id("195")).click();
+        wd.findElement(By.name("to_group")).click();
+        new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(String.valueOf(contact.getGroups().iterator().next().getName()));
+        wd.findElement(By.name("to_group")).click();
+        wd.findElement(By.name("add")).click();
+        wd.findElement(By.linkText("group page \"test 0\"")).click();
+        wd.findElement(By.name("group")).click();
+        new Select(wd.findElement(By.name("group"))).selectByVisibleText("[all]");
+        wd.findElement(By.name("group")).click();
+
+    }
+
+    public void testRemoveGroup(ContactData contact) throws Exception {
+
+        wd.findElement(By.name("group")).click();
+        new Select(wd.findElement(By.name("group"))).selectByVisibleText(String.valueOf(contact.getGroups().iterator().next().getName()));
+        wd.findElement(By.name("group")).click();
+        wd.findElement(By.id("195")).click();
+        wd.findElement(By.name("remove")).click();
+        wd.findElement(By.linkText("group page \"test 0\"")).click();
+        wd.findElement(By.name("group")).click();
+        new Select(wd.findElement(By.name("group"))).selectByVisibleText("[all]");
+        wd.findElement(By.name("group")).click();
+
+    }
+//--------------------------------------
 
     public boolean isThereACheckboxInTable() {
         return isElementPresent(By.xpath("/html/body/div/div[4]/form[2]/table/tbody/tr[2]/td[1]/input"));
