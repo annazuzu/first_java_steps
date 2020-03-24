@@ -27,6 +27,8 @@ public class ContactAddToGroup extends TestBase {
 
         app.сontact().selectContactAndAddToGroup(groups, contacts);
 
+//        app.сontact().equalsGroupsContacts(groups, contacts);
+
     }
 
 }

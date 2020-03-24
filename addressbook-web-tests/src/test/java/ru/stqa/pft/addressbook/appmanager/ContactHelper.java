@@ -16,6 +16,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.IsEqual.equalTo;
+
 public class ContactHelper extends HelperBase{
 
     protected static final ApplicationManager app = new ApplicationManager(System.getProperty("browser", BrowserType.CHROME));
@@ -148,18 +151,36 @@ public class ContactHelper extends HelperBase{
         wd.findElement(By.name("to_group")).click();
 
         if (contact.getGroups().size() > 0) {
+//            Assert.assertTrue(contact.getGroups().size() == 1);
             new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(String.valueOf(group.getName()));
         } else {
+            app.goTo().GroupPage();
             app.group().create(group);
             selectCheckboxByID(contact.getId());
             wd.findElement(By.name("to_group")).click();
+            new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(String.valueOf(group.getName()));
         }
 
 //        new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(String.valueOf(group.getName()));
         wd.findElement(By.name("to_group")).click();
+
+        List<ContactData> before = list();
+        System.out.println(before);
+
         wd.findElement(By.name("add")).click();
         wd.findElement(By.linkText("group page \"" + group.getName() + "\"")).click();
         wd.findElement(By.name("group")).click();
+
+//        Groups listGroups = contact.getGroups();
+//        System.out.println(listGroups);
+
+        List<ContactData> after = list();
+        System.out.println(after);
+
+//        Contacts after = app.сontact().all();
+//        assertThat(after, equalTo(before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
+        assertThat(after.size(), equalTo(before.size() + 1));
+
         new Select(wd.findElement(By.name("group"))).selectByVisibleText("[all]");
         wd.findElement(By.name("group")).click();
     }
@@ -183,13 +204,39 @@ public class ContactHelper extends HelperBase{
 
             }
 
+        List<ContactData> before = list();
+
             wd.findElement(By.name("remove")).click();
             wd.findElement(By.linkText("group page \"" + group.getName() + "\"")).click();
             wd.findElement(By.name("group")).click();
+
+        List<ContactData> after = list();
+        assertThat(after.size(), equalTo(before.size() - 1));
+
+
+//        Contacts after = app.сontact().all();
+//        assertThat(app.сontact().getContactCount(), equalTo(before.size() - 1));
+//        assertThat(after, equalTo(before.without(contact)));
+
+
             new Select(wd.findElement(By.name("group"))).selectByVisibleText("[all]");
             wd.findElement(By.name("group")).click();
 
     }
+
+//    public void equalsGroupsContacts(Groups groups, Contacts contacts) {
+//
+//        ContactData contact = contacts.iterator().next();
+//        GroupData group = groups.iterator().next();
+//
+//        wd.findElement(By.name("group")).click();
+//        new Select(wd.findElement(By.name("group"))).selectByVisibleText(String.valueOf(group.getName()));
+
+
+
+//
+//    }
+
 //--------------------------------------
 
     public boolean isThereACheckboxInTable() {
