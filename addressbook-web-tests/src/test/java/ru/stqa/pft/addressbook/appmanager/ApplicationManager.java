@@ -46,7 +46,7 @@ public class ApplicationManager {
             wd = new InternetExplorerDriver();
         }
 //        wd = new ChromeDriver();
-        wd.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
         wd.get(properties.getProperty("web.baseUrl"));/*http://localhost/addressbook"*/
         groupHelper = new GroupHelper(wd);
         navigationHelper = new NavigationHelper(wd);

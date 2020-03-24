@@ -3,6 +3,7 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
@@ -16,6 +17,8 @@ import java.util.List;
 import java.util.Set;
 
 public class ContactHelper extends HelperBase{
+
+    protected static final ApplicationManager app = new ApplicationManager(System.getProperty("browser", BrowserType.CHROME));
 
     public ContactHelper(WebDriver wd) {
         super(wd);
@@ -143,7 +146,16 @@ public class ContactHelper extends HelperBase{
 
         selectCheckboxByID(contact.getId());
         wd.findElement(By.name("to_group")).click();
-        new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(String.valueOf(group.getName()));
+
+        if (contact.getGroups().size() > 0) {
+            new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(String.valueOf(group.getName()));
+        } else {
+            app.group().create(group);
+            selectCheckboxByID(contact.getId());
+            wd.findElement(By.name("to_group")).click();
+        }
+
+//        new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(String.valueOf(group.getName()));
         wd.findElement(By.name("to_group")).click();
         wd.findElement(By.name("add")).click();
         wd.findElement(By.linkText("group page \"" + group.getName() + "\"")).click();
@@ -152,17 +164,30 @@ public class ContactHelper extends HelperBase{
         wd.findElement(By.name("group")).click();
     }
 
-    public void testRemoveGroup(ContactData contact) throws Exception {
+    public void testRemoveGroup(Groups groups, Contacts contacts) throws Exception {
 
-        wd.findElement(By.name("group")).click();
-        new Select(wd.findElement(By.name("group"))).selectByVisibleText(String.valueOf(contact.getGroups().iterator().next().getName()));
-        wd.findElement(By.name("group")).click();
-        wd.findElement(By.id("195")).click();
-        wd.findElement(By.name("remove")).click();
-        wd.findElement(By.linkText("group page \"test 0\"")).click();
-        wd.findElement(By.name("group")).click();
-        new Select(wd.findElement(By.name("group"))).selectByVisibleText("[all]");
-        wd.findElement(By.name("group")).click();
+        ContactData contact = contacts.iterator().next();
+        GroupData group = groups.iterator().next();
+
+            wd.findElement(By.name("group")).click();
+            new Select(wd.findElement(By.name("group"))).selectByVisibleText(String.valueOf(group.getName()));
+            wd.findElement(By.name("group")).click();
+
+            //на странице группы:
+
+            List<WebElement> elements = wd.findElements(By.name("entry"));
+            for (WebElement element : elements) {
+
+                int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+                wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
+
+            }
+
+            wd.findElement(By.name("remove")).click();
+            wd.findElement(By.linkText("group page \"" + group.getName() + "\"")).click();
+            wd.findElement(By.name("group")).click();
+            new Select(wd.findElement(By.name("group"))).selectByVisibleText("[all]");
+            wd.findElement(By.name("group")).click();
 
     }
 //--------------------------------------
