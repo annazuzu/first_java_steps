@@ -6,15 +6,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
-import ru.stqa.pft.addressbook.model.*;
+import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.IsEqual.equalTo;
 
 public class ContactHelper extends HelperBase{
 
@@ -166,17 +165,15 @@ public class ContactHelper extends HelperBase{
 
     }
 
-    public void returnToMainPageAfterAddContactToGroup() {
+    public void returnToMainPage() {
         new Select(wd.findElement(By.name("group"))).selectByVisibleText("[all]");
         wd.findElement(By.name("group")).click();
     }
 
 // END ADD CONTACT TO GROUP
+// BEGIN REMOVE CONTACT FROM GROUP
 
-    public void testRemoveGroup(Groups groups, Contacts contacts) throws Exception {
-
-        ContactData contact = contacts.iterator().next();
-        GroupData group = groups.iterator().next();
+    public void testRemoveGroup(GroupData group, ContactData contact) throws Exception {
 
             wd.findElement(By.name("group")).click();
             new Select(wd.findElement(By.name("group"))).selectByVisibleText(String.valueOf(group.getName()));
@@ -192,14 +189,14 @@ public class ContactHelper extends HelperBase{
 
             }
 
-        List<ContactData> before = list();
+//        List<ContactData> before = list();
 
             wd.findElement(By.name("remove")).click();
             wd.findElement(By.linkText("group page \"" + group.getName() + "\"")).click();
             wd.findElement(By.name("group")).click();
 
-        List<ContactData> after = list();
-        assertThat(after.size(), equalTo(before.size() - 1));
+//        List<ContactData> after = list();
+//        assertThat(after.size(), equalTo(before.size() - 1));
 
 
 //        Contacts after = app.сontact().all();
@@ -207,24 +204,12 @@ public class ContactHelper extends HelperBase{
 //        assertThat(after, equalTo(before.without(contact)));
 
 
-            new Select(wd.findElement(By.name("group"))).selectByVisibleText("[all]");
-            wd.findElement(By.name("group")).click();
+//            new Select(wd.findElement(By.name("group"))).selectByVisibleText("[all]");
+//            wd.findElement(By.name("group")).click();
 
     }
 
-//    public void equalsGroupsContacts(Groups groups, Contacts contacts) {
-//
-//        ContactData contact = contacts.iterator().next();
-//        GroupData group = groups.iterator().next();
-//
-//        wd.findElement(By.name("group")).click();
-//        new Select(wd.findElement(By.name("group"))).selectByVisibleText(String.valueOf(group.getName()));
-
-
-
-//
-//    }
-
+// END REMOVE CONTACT FROM GROUP
 //--------------------------------------
 
     public boolean isThereACheckboxInTable() {

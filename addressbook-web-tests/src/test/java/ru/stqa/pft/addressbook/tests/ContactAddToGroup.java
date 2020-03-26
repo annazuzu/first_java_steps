@@ -66,7 +66,7 @@ public class ContactAddToGroup extends TestBase {
 
         assertThat(after, equalTo(before.withAdded(contactsGroup)));
 
-        app.сontact().returnToMainPageAfterAddContactToGroup();
+        app.сontact().returnToMainPage();
 
     }
 }
