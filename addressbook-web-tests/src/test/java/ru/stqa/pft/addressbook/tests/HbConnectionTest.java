@@ -7,7 +7,7 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.ContactGroupData;
 
 import java.util.List;
 
@@ -37,15 +37,35 @@ public class HbConnectionTest {
 
     public void testHbConnection () {
 
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        List<ContactData> result = session.createQuery( "from ContactData where deprecated = '0000-00-00'" ).list();
-        for ( ContactData contact : result ) {
-            System.out.println(contact);
-            System.out.println(contact.getGroups());
+//        Session session = sessionFactory.openSession();
+//        session.beginTransaction();
+//        List<GroupData> result = session.createQuery( "from GroupData" ).list();
+//        for ( GroupData groups : result ) {
+//                System.out.println(groups);
+//            }
+//        session.getTransaction().commit();
+//        session.close();
+
+                Session session1 = sessionFactory.openSession();
+                session1.beginTransaction();
+                List<ContactGroupData> result1 = session1.createQuery("from ContactGroupData").list();
+
+                session1.getTransaction().commit();
+                session1.close();
+        for ( ContactGroupData contactsGroup: result1 ) {
+            System.out.println(contactsGroup);
         }
-        session.getTransaction().commit();
-        session.close();
+
+//
+//        Session session2 = sessionFactory.openSession();
+//        session2.beginTransaction();
+//        List<ContactData> result2 = session2.createQuery( "from ContactData where deprecated = '0000-00-00'" ).list();
+//        for ( ContactData contact : result2 ) {
+//            System.out.println(contact);
+//            System.out.println(contact.getGroups()); // выводится инфа о группах, в которые входит этот контакт
+//        }
+//        session2.getTransaction().commit();
+//        session2.close();
 
     }
 

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.stqa.pft.addressbook.tests.ContactAddToGroup" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-03-26T18:34:19" hostname="DESKTOP-48TTPDL" time="1.514">
+  <properties/>
+  <testcase name="testContactAddToGroup" classname="ru.stqa.pft.addressbook.tests.ContactAddToGroup" time="1.514"/>
+  <system-out><![CDATA[21:34:19.587 [Test worker] INFO  r.s.pft.addressbook.tests.TestBase - Start test testContactAddToGroup with parameters []
+Hibernate: select groupdata0_.group_id as group_id1_2_, groupdata0_.group_footer as group_fo2_2_, groupdata0_.group_header as group_he3_2_, groupdata0_.group_name as group_na4_2_ from group_list groupdata0_
+Hibernate: select contacts0_.group_id as group_id2_0_0_, contacts0_.id as id1_0_0_, contactdat1_.id as id1_1_1_, contactdat1_.address as address2_1_1_, contactdat1_.email as email3_1_1_, contactdat1_.mobile as mobile4_1_1_, contactdat1_.firstname as firstnam5_1_1_, contactdat1_.lastname as lastname6_1_1_ from address_in_groups contacts0_ inner join addressbook contactdat1_ on contacts0_.id=contactdat1_.id where contacts0_.group_id=?
+Hibernate: select groups0_.id as id1_0_0_, groups0_.group_id as group_id2_0_0_, groupdata1_.group_id as group_id1_2_1_, groupdata1_.group_footer as group_fo2_2_1_, groupdata1_.group_header as group_he3_2_1_, groupdata1_.group_name as group_na4_2_1_ from address_in_groups groups0_ inner join group_list groupdata1_ on groups0_.group_id=groupdata1_.group_id where groups0_.id=?
+Hibernate: select groups0_.id as id1_0_0_, groups0_.group_id as group_id2_0_0_, groupdata1_.group_id as group_id1_2_1_, groupdata1_.group_footer as group_fo2_2_1_, groupdata1_.group_header as group_he3_2_1_, groupdata1_.group_name as group_na4_2_1_ from address_in_groups groups0_ inner join group_list groupdata1_ on groups0_.group_id=groupdata1_.group_id where groups0_.id=?
+Hibernate: select contacts0_.group_id as group_id2_0_0_, contacts0_.id as id1_0_0_, contactdat1_.id as id1_1_1_, contactdat1_.address as address2_1_1_, contactdat1_.email as email3_1_1_, contactdat1_.mobile as mobile4_1_1_, contactdat1_.firstname as firstnam5_1_1_, contactdat1_.lastname as lastname6_1_1_ from address_in_groups contacts0_ inner join addressbook contactdat1_ on contacts0_.id=contactdat1_.id where contacts0_.group_id=?
+Hibernate: select contactdat0_.id as id1_1_, contactdat0_.address as address2_1_, contactdat0_.email as email3_1_, contactdat0_.mobile as mobile4_1_, contactdat0_.firstname as firstnam5_1_, contactdat0_.lastname as lastname6_1_ from addressbook contactdat0_ where deprecated='0000-00-00'
+Hibernate: select groups0_.id as id1_0_0_, groups0_.group_id as group_id2_0_0_, groupdata1_.group_id as group_id1_2_1_, groupdata1_.group_footer as group_fo2_2_1_, groupdata1_.group_header as group_he3_2_1_, groupdata1_.group_name as group_na4_2_1_ from address_in_groups groups0_ inner join group_list groupdata1_ on groups0_.group_id=groupdata1_.group_id where groups0_.id=?
+Hibernate: select contacts0_.group_id as group_id2_0_0_, contacts0_.id as id1_0_0_, contactdat1_.id as id1_1_1_, contactdat1_.address as address2_1_1_, contactdat1_.email as email3_1_1_, contactdat1_.mobile as mobile4_1_1_, contactdat1_.firstname as firstnam5_1_1_, contactdat1_.lastname as lastname6_1_1_ from address_in_groups contacts0_ inner join addressbook contactdat1_ on contacts0_.id=contactdat1_.id where contacts0_.group_id=?
+Hibernate: select groups0_.id as id1_0_0_, groups0_.group_id as group_id2_0_0_, groupdata1_.group_id as group_id1_2_1_, groupdata1_.group_footer as group_fo2_2_1_, groupdata1_.group_header as group_he3_2_1_, groupdata1_.group_name as group_na4_2_1_ from address_in_groups groups0_ inner join group_list groupdata1_ on groups0_.group_id=groupdata1_.group_id where groups0_.id=?
+Hibernate: select contactgro0_.id as id1_0_, contactgro0_.group_id as group_id2_0_ from address_in_groups contactgro0_
+ContactsGroupsData{contactId=195, groupId=179}
+ContactsGroupsData{contactId=205, groupId=179}
+ContactsGroupsData{contactId=207, groupId=179}
+ContactsGroupsData{contactId=205, groupId=179}
+ContactsGroupsData{contactId=207, groupId=179}
+ContactsGroupsData{contactId=218, groupId=193}
+ContactsGroupsData{contactId=219, groupId=193}
+Hibernate: select contactgro0_.id as id1_0_, contactgro0_.group_id as group_id2_0_ from address_in_groups contactgro0_
+ContactsGroupsData{contactId=195, groupId=179}
+ContactsGroupsData{contactId=205, groupId=179}
+ContactsGroupsData{contactId=207, groupId=179}
+ContactsGroupsData{contactId=205, groupId=179}
+ContactsGroupsData{contactId=207, groupId=179}
+ContactsGroupsData{contactId=218, groupId=193}
+ContactsGroupsData{contactId=219, groupId=193}
+21:34:21.108 [Test worker] INFO  r.s.pft.addressbook.tests.TestBase - Stop test testContactAddToGroup
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -6,10 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
-import ru.stqa.pft.addressbook.model.ContactData;
-import ru.stqa.pft.addressbook.model.Contacts;
-import ru.stqa.pft.addressbook.model.GroupData;
-import ru.stqa.pft.addressbook.model.Groups;
+import ru.stqa.pft.addressbook.model.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -111,7 +108,7 @@ public class ContactHelper extends HelperBase{
         wd.findElements(By.name("selected[]")).get(indexContCheckbox).click();
     }
 
-    private void selectCheckboxByID(int id) {
+    public void selectCheckboxByID(int id) {
         wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
     }
 
@@ -141,18 +138,19 @@ public class ContactHelper extends HelperBase{
         click(By.name("update"));
 
     }
+
+
 //--------------------------------------
-    public void selectContactAndAddToGroup (Groups groups, Contacts contacts) {
+//BEGIN ADD CONTACT TO GROUP
 
-       ContactData contact = contacts.iterator().next();
-       GroupData group = groups.iterator().next();
+    public void selectContactAndAddToGroup (GroupData group, ContactData contact) {
 
-        selectCheckboxByID(contact.getId());
         wd.findElement(By.name("to_group")).click();
 
         if (contact.getGroups().size() > 0) {
 //            Assert.assertTrue(contact.getGroups().size() == 1);
             new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(String.valueOf(group.getName()));
+
         } else {
             app.goTo().GroupPage();
             app.group().create(group);
@@ -161,29 +159,19 @@ public class ContactHelper extends HelperBase{
             new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(String.valueOf(group.getName()));
         }
 
-//        new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(String.valueOf(group.getName()));
         wd.findElement(By.name("to_group")).click();
-
-        List<ContactData> before = list();
-        System.out.println(before);
-
         wd.findElement(By.name("add")).click();
         wd.findElement(By.linkText("group page \"" + group.getName() + "\"")).click();
         wd.findElement(By.name("group")).click();
 
-//        Groups listGroups = contact.getGroups();
-//        System.out.println(listGroups);
+    }
 
-        List<ContactData> after = list();
-        System.out.println(after);
-
-//        Contacts after = app.сontact().all();
-//        assertThat(after, equalTo(before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
-        assertThat(after.size(), equalTo(before.size() + 1));
-
+    public void returnToMainPageAfterAddContactToGroup() {
         new Select(wd.findElement(By.name("group"))).selectByVisibleText("[all]");
         wd.findElement(By.name("group")).click();
     }
+
+// END ADD CONTACT TO GROUP
 
     public void testRemoveGroup(Groups groups, Contacts contacts) throws Exception {
 

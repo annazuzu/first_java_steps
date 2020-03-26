@@ -4,7 +4,6 @@ import com.google.common.collect.ForwardingSet;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class Groups extends ForwardingSet<GroupData> {
@@ -30,6 +29,11 @@ public class Groups extends ForwardingSet<GroupData> {
 
     public Set<GroupData> getDelegate() {
         return delegate;
+    }
+
+    public Groups group (GroupData group) {
+        Groups groups = new Groups(this);
+        return groups;
     }
 
     public Groups withAdded (GroupData group) {
