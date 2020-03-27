@@ -58,7 +58,4 @@ public class ContactRemoveFromGroup extends TestBase {
 
     }
 
-
-
-
 }

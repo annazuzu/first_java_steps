@@ -43,7 +43,7 @@ public class ContactGroupData {
 
     @Override
     public String toString() {
-        return "ContactsGroupsData{" +
+        return "ContactGroupData{" +
                 "contactId=" + contactId +
                 ", groupId=" + groupId +
                 '}';

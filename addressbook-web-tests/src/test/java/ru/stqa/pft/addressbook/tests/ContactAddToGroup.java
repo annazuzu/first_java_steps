@@ -1,6 +1,6 @@
 package ru.stqa.pft.addressbook.tests;
 
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.*;
 
@@ -9,37 +9,21 @@ import static org.hamcrest.core.IsEqual.equalTo;
 
 public class ContactAddToGroup extends TestBase {
 
-    ContactData theContact;
-    GroupData groupToAdd;
+//    ContactData oneContact;
+//    GroupData oneGroupToAdd;
 
-    @BeforeTest
+    @BeforeMethod
     public void ensurePreconditions() {
 
-        theContact = null;
-        groupToAdd = null;
+        if (app.db().groups().size() == 0)
+        {   app.goTo().GroupPage();
+            app.group().create(new GroupData().withName("test1").withHeader("test2").withFooter("test3"));
+        }
 
-        Groups groups = app.db().groups();
-        Contacts contacts = app.db().contacts();
-
-        for (ContactData c : contacts) {
-            Groups cg = c.getGroups();
-
-            for (GroupData g : groups) {
-                if (!cg.contains(g)) {
-                    groupToAdd = g;
-                    break;
-                }
-            }
-            if (groupToAdd != null) {
-                theContact = c;
-                break;
-            }
-
-            if (app.db().contacts().size() == 0) {
-                app.сontact().create(new ContactData().withName("Anna").withSurname("Maksimova").withTitleContact("Contact1")
-                        .withMobilePhone("9005905555").withEmail("maxann89@gmail.com").withAddress("Lenin str, Erepenin"), false);
-                app.goTo().homePage();
-            }
+        if (app.db().contacts().size() == 0) {
+            app.сontact().create(new ContactData().withName("Anna").withSurname("Maksimova").withTitleContact("Contact1")
+                    .withMobilePhone("9005905555").withEmail("maxann89@gmail.com").withAddress("Lenin str, Erepenin"), false);
+            app.goTo().homePage();
         }
 
     }
@@ -47,8 +31,6 @@ public class ContactAddToGroup extends TestBase {
     @Test
     public void testContactAddToGroup() throws Exception {
 
-//        Groups groups = app.db().groups();
-//        Contacts contacts = app.db().contacts();
 
         Groups groups = app.db().groups();
         Contacts contacts = app.db().contacts();
