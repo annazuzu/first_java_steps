@@ -60,12 +60,14 @@ public class ContactAddToGroup extends TestBase {
 
     @Test
     public void testContactAddToGroup() throws Exception {
-        
+
 //        ContactsAndGroups before = app.db().contactsGroups();
         ContactGroupData contactsGroup = new ContactGroupData().withContactId(theContact.getId()).withGroupId(groupToAdd.getId());
 
         app.сontact().selectCheckboxT(theContact.getId());
-        app.сontact().selectContactAndAddToGroup(groupToAdd, theContact, app);
+        app.сontact().selectContact(groupToAdd, theContact, app);
+        app.сontact().clickToAddButton();
+        app.сontact().returnToGroupPage(groupToAdd);
 
         ContactsAndGroups after = app.db().contactsGroups();
 

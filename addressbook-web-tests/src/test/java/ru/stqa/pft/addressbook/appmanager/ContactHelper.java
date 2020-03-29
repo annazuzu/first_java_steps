@@ -145,7 +145,7 @@ public class ContactHelper extends HelperBase{
 //BEGIN ADD CONTACT TO GROUP
 
 
-    public void selectContactAndAddToGroup (GroupData group, ContactData contact, ApplicationManager app) {
+    public void selectContact(GroupData group, ContactData contact, ApplicationManager app) {
 
         wd.findElement(By.name("to_group")).click();
 
@@ -171,13 +171,27 @@ public class ContactHelper extends HelperBase{
         }
 
         wd.findElement(By.name("to_group")).click();
+
+//        wd.findElement(By.name("to_group")).click();
+//        wd.findElement(By.name("add")).click();
+//        wd.findElement(By.linkText("group page \"" + group.getName() + "\"")).click();
+////        wd.findElement(By.xpath("//*[@id='" + group.getId() + "']/div/i/a]"));
+////        wd.findElement(By.cssSelector(String.format("a[href='./?group=%s']", group.getId())));
+////        wd.findElement(By.linkText(String.format("group page \"%s\"", group.getName()))).click();
+//        wd.findElement(By.name("group")).click();
+
+    }
+
+    public void clickToAddButton() {
         wd.findElement(By.name("add")).click();
+    }
+
+    public void returnToGroupPage(GroupData group) {
         wd.findElement(By.linkText("group page \"" + group.getName() + "\"")).click();
 //        wd.findElement(By.xpath("//*[@id='" + group.getId() + "']/div/i/a]"));
 //        wd.findElement(By.cssSelector(String.format("a[href='./?group=%s']", group.getId())));
 //        wd.findElement(By.linkText(String.format("group page \"%s\"", group.getName()))).click();
         wd.findElement(By.name("group")).click();
-
     }
 
     public void returnToMainPage() {
@@ -188,27 +202,40 @@ public class ContactHelper extends HelperBase{
 // END ADD CONTACT TO GROUP
 // BEGIN REMOVE CONTACT FROM GROUP
 
-    public void testRemoveGroup(GroupData group, ContactData contact) throws Exception {
+    public void goToGroup(GroupData group) {
 
-            wd.findElement(By.name("group")).click();
+        wd.findElement(By.name("group")).click();
+        new Select(wd.findElement(By.name("group"))).selectByVisibleText(group.getName());
+//        new Select(wd.findElement(By.name("group"))).selectByValue(String.format("%s", group.getId()));
+        wd.findElement(By.name(group.getName())).click();
+
+    }
+
+    public void testRemoveGroup(GroupData group) throws Exception {
+
+        wd.findElement(By.name("group")).click();
             new Select(wd.findElement(By.name("group"))).selectByVisibleText(String.valueOf(group.getName()));
-            wd.findElement(By.name("group")).click();
+//        new Select(wd.findElement(By.name("group"))).selectByValue(String.format("%s", group.getId()));
+//        wd.findElement(By.id(String.valueOf(group.getId()))).click();
+        wd.findElement(By.name("group")).click();
 
             //на странице группы:
 
-            List<WebElement> elements = wd.findElements(By.name("entry"));
-            for (WebElement element : elements) {
 
-                int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-                wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
 
-            }
+//            List<WebElement> elements = wd.findElements(By.name("entry"));
+//            for (WebElement element : elements) {
+//
+//                int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+//                wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
+//
+//            }
 
 //        List<ContactData> before = list();
 
-            wd.findElement(By.name("remove")).click();
-            wd.findElement(By.linkText("group page \"" + group.getName() + "\"")).click();
-            wd.findElement(By.name("group")).click();
+//            wd.findElement(By.name("remove")).click();
+//            wd.findElement(By.linkText("group page \"" + group.getName() + "\"")).click();
+//            wd.findElement(By.name("group")).click();
 
 //        List<ContactData> after = list();
 //        assertThat(after.size(), equalTo(before.size() - 1));
@@ -222,6 +249,10 @@ public class ContactHelper extends HelperBase{
 //            new Select(wd.findElement(By.name("group"))).selectByVisibleText("[all]");
 //            wd.findElement(By.name("group")).click();
 
+    }
+
+    public void clickToRemoveButton() {
+        wd.findElement(By.name("remove")).click();
     }
 
 // END REMOVE CONTACT FROM GROUP
