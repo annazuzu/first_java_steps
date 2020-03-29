@@ -1,21 +1,21 @@
 package ru.stqa.pft.addressbook.model;
 
 
-import com.thoughtworks.xstream.annotations.XStreamAlias;
-import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.util.Objects;
 
-import javax.persistence.*;
-
-@XStreamAlias("contactGroup")
 @Entity
 @Table(name = "address_in_groups")
 public class ContactGroupData {
 
-    @XStreamOmitField()
+
     @Column(name = "id")
-    @Id
     private int contactId;
 
+    @Id
     @Column(name = "group_id")
     private int groupId;
 
@@ -49,23 +49,36 @@ public class ContactGroupData {
                 '}';
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         ContactGroupData that = (ContactGroupData) o;
-
-        if (contactId != that.contactId) return false;
-        return groupId == that.groupId;
-
+        return getContactId() == that.getContactId() &&
+                getGroupId() == that.getGroupId();
     }
 
     @Override
     public int hashCode() {
-        int result = contactId;
-        result = 31 * result + groupId;
-        return result;
+        return Objects.hash(getContactId(), getGroupId());
     }
+
+//        @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//
+//        ContactGroupData that = (ContactGroupData) o;
+//
+//        if (contactId != that.contactId) return false;
+//        return groupId == that.groupId;
+//
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        int result = contactId;
+//        result = 31 * result + groupId;
+//        return result;
+//    }
 }

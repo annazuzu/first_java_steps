@@ -10,12 +10,18 @@ public class NavigationHelper extends HelperBase {
         super(wd);
     }
 
-    public void GroupPage() {
+    public void groupPage() {
         if(isElementPresent(By.tagName("h1"))
                 && wd.findElement(By.tagName("h1")).getText().equals("Groups")
                 && isElementPresent(By.name("new"))) {
             return;
         }
+        click(By.linkText("groups"));
+    }
+
+    public void groupPage1() {
+        wd.findElement(By.cssSelector(String.format("a[href='group.php']")));
+//        wd.findElement(By.cssSelector(String.format("a[href='group.php']")));
         click(By.linkText("groups"));
     }
 

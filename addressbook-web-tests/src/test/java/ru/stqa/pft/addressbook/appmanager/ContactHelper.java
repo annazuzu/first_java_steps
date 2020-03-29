@@ -3,7 +3,6 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
@@ -17,7 +16,6 @@ import java.util.Set;
 
 public class ContactHelper extends HelperBase{
 
-    protected static final ApplicationManager app = new ApplicationManager(System.getProperty("browser", BrowserType.CHROME));
 
     public ContactHelper(WebDriver wd) {
         super(wd);
@@ -138,29 +136,46 @@ public class ContactHelper extends HelperBase{
 
     }
 
+    public void selectCheckboxT (int id) {
+        wd.findElement(By.id(String.valueOf((id)))).click();
+    }
+
 
 //--------------------------------------
 //BEGIN ADD CONTACT TO GROUP
 
-    public void selectContactAndAddToGroup (GroupData group, ContactData contact) {
+
+    public void selectContactAndAddToGroup (GroupData group, ContactData contact, ApplicationManager app) {
 
         wd.findElement(By.name("to_group")).click();
 
         if (contact.getGroups().size() > 0) {
 //            Assert.assertTrue(contact.getGroups().size() == 1);
-            new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(String.valueOf(group.getName()));
+//            wd.findElement(By.name("to_group")).click();
+            new Select(wd.findElement(By.name("to_group"))).selectByValue(String.format("%s", group.getId()));
+
+//             new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(String.valueOf(group.getName()));
 
         } else {
-            app.goTo().GroupPage();
+
+//            System.out.println("no groups!");
+
+            Assert.assertTrue(contact.getGroups().size() == 0);
+
+            app.goTo().groupPage1();
             app.group().create(group);
+            app.goTo().homePage();
             selectCheckboxByID(contact.getId());
             wd.findElement(By.name("to_group")).click();
-            new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(String.valueOf(group.getName()));
+            new Select(wd.findElement(By.name("to_group"))).selectByValue(String.format("%s", group.getId()));
         }
 
         wd.findElement(By.name("to_group")).click();
         wd.findElement(By.name("add")).click();
         wd.findElement(By.linkText("group page \"" + group.getName() + "\"")).click();
+//        wd.findElement(By.xpath("//*[@id='" + group.getId() + "']/div/i/a]"));
+//        wd.findElement(By.cssSelector(String.format("a[href='./?group=%s']", group.getId())));
+//        wd.findElement(By.linkText(String.format("group page \"%s\"", group.getName()))).click();
         wd.findElement(By.name("group")).click();
 
     }

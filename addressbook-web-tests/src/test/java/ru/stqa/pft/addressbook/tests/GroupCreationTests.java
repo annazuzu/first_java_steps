@@ -55,7 +55,7 @@ public class GroupCreationTests extends TestBase {
   @Test(dataProvider = "validGroupsFromJson")
   public void testGroupCreation(GroupData group) {
 
-      app.goTo().GroupPage();
+      app.goTo().groupPage();
       Groups before = app.db().groups();
 //      Groups before = app.group().all();
       app.group().create(group);
@@ -69,7 +69,7 @@ public class GroupCreationTests extends TestBase {
   @Test (enabled = false)
   public void testBadGroupCreation() {
 
-    app.goTo().GroupPage();
+    app.goTo().groupPage();
     Groups before = app.db().groups();
     verifyGroupListInUI();
 //    Groups before = app.group().all();

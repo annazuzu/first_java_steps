@@ -38,15 +38,15 @@ public class ApplicationManager {
 
         dbHelper = new DbHelper();
 
-        if(browser.equals(BrowserType.CHROME)) {
+        if(browser.equals(BrowserType.IE)) {
             wd = new ChromeDriver();
         } else if (browser.equals(BrowserType.FIREFOX)) {
             wd = new FirefoxDriver();
-        } else if (browser.equals(BrowserType.IE)) {
+        } else if (browser.equals(BrowserType.CHROME)) {
             wd = new InternetExplorerDriver();
         }
 //        wd = new ChromeDriver();
-        wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+        wd.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         wd.get(properties.getProperty("web.baseUrl"));/*http://localhost/addressbook"*/
         groupHelper = new GroupHelper(wd);
         navigationHelper = new NavigationHelper(wd);

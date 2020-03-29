@@ -46,13 +46,13 @@ public class HbConnectionTest {
 //        session.getTransaction().commit();
 //        session.close();
 
-                Session session1 = sessionFactory.openSession();
-                session1.beginTransaction();
-                List<ContactGroupData> result1 = session1.createQuery("from ContactGroupData").list();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List<ContactGroupData> result = session.createQuery("from ContactGroupData").list();
 
-                session1.getTransaction().commit();
-                session1.close();
-        for ( ContactGroupData contactsGroup: result1 ) {
+        session.getTransaction().commit();
+        session.close();
+        for ( ContactGroupData contactsGroup: result ) {
             System.out.println(contactsGroup);
         }
 
@@ -66,7 +66,7 @@ public class HbConnectionTest {
 //        }
 //        session2.getTransaction().commit();
 //        session2.close();
-
+//
     }
 
 }

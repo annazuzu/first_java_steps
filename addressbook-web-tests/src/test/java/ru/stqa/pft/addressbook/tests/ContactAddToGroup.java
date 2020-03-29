@@ -1,48 +1,71 @@
 package ru.stqa.pft.addressbook.tests;
 
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.*;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.IsEqual.equalTo;
 
 public class ContactAddToGroup extends TestBase {
 
-//    ContactData oneContact;
-//    GroupData oneGroupToAdd;
+    ContactData theContact;
+    GroupData groupToAdd;
+    ContactsAndGroups before;
 
-    @BeforeMethod
+    @BeforeTest
     public void ensurePreconditions() {
 
-        if (app.db().groups().size() == 0)
-        {   app.goTo().GroupPage();
-            app.group().create(new GroupData().withName("test1").withHeader("test2").withFooter("test3"));
+        Groups groups = app.db().groups(); //берем множество групп из БД
+        Contacts contacts = app.db().contacts(); //берем множество контактов из БД
+
+        theContact = null;
+        groupToAdd = null;
+
+        before = app.db().contactsGroups();
+
+        for (ContactData c :
+                    contacts) {
+            Groups cg = c.getGroups();
+            for (GroupData g :
+                    groups) {
+                if (!cg.contains(g)) {
+                    groupToAdd = g;
+                    break;
+                }
+            }
+
+            if(groupToAdd != null){
+                theContact = c;
+                break;
+            }
         }
 
-        if (app.db().contacts().size() == 0) {
-            app.сontact().create(new ContactData().withName("Anna").withSurname("Maksimova").withTitleContact("Contact1")
-                    .withMobilePhone("9005905555").withEmail("maxann89@gmail.com").withAddress("Lenin str, Erepenin"), false);
+        if(theContact == null){
+            theContact = new ContactData().withName("Alex").withSurname("Smotrov");
+            groupToAdd = groups.iterator().next();
+
+            app.сontact().create(theContact, false);
             app.goTo().homePage();
+        }
+
+        if(groupToAdd == null) {
+            groupToAdd = new GroupData().withName("gr34");
+
+            app.goTo().groupPage();
+            app.group().create(groupToAdd);
         }
 
     }
 
     @Test
     public void testContactAddToGroup() throws Exception {
+        
+//        ContactsAndGroups before = app.db().contactsGroups();
+        ContactGroupData contactsGroup = new ContactGroupData().withContactId(theContact.getId()).withGroupId(groupToAdd.getId());
 
-
-        Groups groups = app.db().groups();
-        Contacts contacts = app.db().contacts();
-        ContactsAndGroups before = app.db().contactsGroups();
-
-        ContactData contact = contacts.iterator().next();
-        GroupData group = groups.iterator().next();
-
-        ContactGroupData contactsGroup = new ContactGroupData().withContactId(contact.getId()).withGroupId(group.getId());
-
-        app.сontact().selectCheckboxByID(contact.getId());
-        app.сontact().selectContactAndAddToGroup(groups.iterator().next(), contacts.iterator().next());
+        app.сontact().selectCheckboxT(theContact.getId());
+        app.сontact().selectContactAndAddToGroup(groupToAdd, theContact, app);
 
         ContactsAndGroups after = app.db().contactsGroups();
 
