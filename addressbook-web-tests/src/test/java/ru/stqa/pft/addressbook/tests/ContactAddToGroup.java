@@ -9,8 +9,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactAddToGroup extends TestBase {
 
-    ContactData theContact;
-    GroupData groupToAdd;
+    ContactData oneContact;
+    GroupData oneAddGroup;
     ContactsAndGroups before;
 
     @BeforeTest
@@ -19,8 +19,8 @@ public class ContactAddToGroup extends TestBase {
         Groups groups = app.db().groups(); //берем множество групп из БД
         Contacts contacts = app.db().contacts(); //берем множество контактов из БД
 
-        theContact = null;
-        groupToAdd = null;
+        oneContact = null;
+        oneAddGroup = null;
 
         before = app.db().contactsGroups();
 
@@ -30,30 +30,30 @@ public class ContactAddToGroup extends TestBase {
             for (GroupData g :
                     groups) {
                 if (!cg.contains(g)) {
-                    groupToAdd = g;
+                    oneAddGroup = g;
                     break;
                 }
             }
 
-            if(groupToAdd != null){
-                theContact = c;
+            if(oneAddGroup != null){
+                oneContact = c;
                 break;
             }
         }
 
-        if(theContact == null){
-            theContact = new ContactData().withName("Alex").withSurname("Smotrov");
-            groupToAdd = groups.iterator().next();
+        if(oneContact == null){
+            oneContact = new ContactData().withName("Alex").withSurname("Smotrov");
+            oneAddGroup = groups.iterator().next();
 
-            app.сontact().create(theContact, false);
+            app.сontact().create(oneContact, false);
             app.goTo().homePage();
         }
 
-        if(groupToAdd == null) {
-            groupToAdd = new GroupData().withName("gr34");
+        if(oneAddGroup == null) {
+            oneAddGroup = new GroupData().withName("gr34");
 
             app.goTo().groupPage();
-            app.group().create(groupToAdd);
+            app.group().create(oneAddGroup);
         }
 
     }
@@ -61,13 +61,12 @@ public class ContactAddToGroup extends TestBase {
     @Test
     public void testContactAddToGroup() throws Exception {
 
-//        ContactsAndGroups before = app.db().contactsGroups();
-        ContactGroupData contactsGroup = new ContactGroupData().withContactId(theContact.getId()).withGroupId(groupToAdd.getId());
+        ContactGroupData contactsGroup = new ContactGroupData().withContactId(oneContact.getId()).withGroupId(oneAddGroup.getId());
 
-        app.сontact().selectCheckboxT(theContact.getId());
-        app.сontact().selectContact(groupToAdd, theContact, app);
+        app.сontact().selectCheckboxT(oneContact.getId());
+        app.сontact().selectContact(oneAddGroup, oneContact, app);
         app.сontact().clickToAddButton();
-        app.сontact().returnToGroupPage(groupToAdd);
+        app.сontact().returnToGroupPage(oneAddGroup);
 
         ContactsAndGroups after = app.db().contactsGroups();
 

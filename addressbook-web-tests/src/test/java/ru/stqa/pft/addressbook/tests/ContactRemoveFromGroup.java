@@ -9,8 +9,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactRemoveFromGroup extends TestBase {
 
-    ContactData theContact;
-    GroupData groupFromDel;
+    ContactData oneContact;
+    GroupData oneDelGroup;
     ContactsAndGroups before;
 
     @BeforeTest
@@ -20,8 +20,8 @@ public class ContactRemoveFromGroup extends TestBase {
         Groups groups = app.db().groups();
         Contacts contacts = app.db().contacts();
 
-        theContact = null;
-        groupFromDel = null;
+        oneContact = null;
+        oneDelGroup = null;
 
         before = app.db().contactsGroups();
 
@@ -29,39 +29,38 @@ public class ContactRemoveFromGroup extends TestBase {
             Groups cg = c.getGroups();
 
             if (cg.size() > 0) {
-                theContact = c;
-                groupFromDel = cg.iterator().next();
+                oneContact = c;
+                oneDelGroup = cg.iterator().next();
                 break;
             }
         }
 
-        if (theContact != null && groupFromDel != null) {
+        if (oneContact != null && oneDelGroup != null) {
             return;
         }
 
-        if (theContact == null) {
+        if (oneContact == null) {
 
             if (contacts.size() > 0) {
-                theContact = contacts.iterator().next();
+                oneContact = contacts.iterator().next();
             } else {
-                theContact = new ContactData().withName("Alex").withSurname("Smotrov");
+                oneContact = new ContactData().withName("Alex").withSurname("Smotrov");
 
                 Contacts before = app.db().contacts();
-                app.сontact().create(theContact, false);
+                app.сontact().create(oneContact, false);
                 app.goTo().homePage();
 
-//                theContact = findNewContact(before);
             }
         }
 
-        if (groupFromDel == null) {
+        if (oneDelGroup == null) {
             if (groups.size() > 0) {
-                groupFromDel = groups.iterator().next();
+                oneDelGroup = groups.iterator().next();
             } else {
-                groupFromDel = new GroupData().withName("gr34");
+                oneDelGroup = new GroupData().withName("gr34");
 
                 app.goTo().groupPage();
-                app.group().create(groupFromDel);
+                app.group().create(oneDelGroup);
             }
         }
 
@@ -70,23 +69,13 @@ public class ContactRemoveFromGroup extends TestBase {
     @Test
     public void testContactRemoveFromGroup() throws Exception {
 
-//        Groups groups = app.db().groups();
-//        Contacts contacts = app.db().contacts();
-//        ContactsAndGroups before = app.db().contactsGroups();
+        ContactGroupData contactsGroup = new ContactGroupData().
+                withContactId(oneContact.getId()).withGroupId(oneDelGroup.getId());
 
-        ContactGroupData contactsGroup = new ContactGroupData().withContactId(theContact.getId()).withGroupId(groupFromDel.getId());
-
-//        ContactData contact = contacts.iterator().next();
-//        GroupData group = groups.iterator().next();
-//        ContactGroupData deletedContact = before.iterator().next();
-
-//        ContactGroupData contactsGroup = new ContactGroupData().withContactId(contact.getId()).withGroupId(group.getId());
-
-//        app.сontact().goToGroup(groupFromDel);
-        app.сontact().testRemoveGroup(groupFromDel);
-        app.сontact().selectCheckboxT(theContact.getId());
+        app.сontact().goToGroup(oneDelGroup);
+        app.сontact().selectCheckboxByID(oneContact.getId());
         app.сontact().clickToRemoveButton();
-        app.сontact().returnToGroupPage(groupFromDel);
+        app.сontact().returnToGroupPage(oneDelGroup);
 
         ContactsAndGroups after = app.db().contactsGroups();
 
