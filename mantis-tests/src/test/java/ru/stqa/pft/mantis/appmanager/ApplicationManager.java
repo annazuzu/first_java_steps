@@ -15,9 +15,13 @@ import java.util.concurrent.TimeUnit;
 public class ApplicationManager {
 
     private final Properties properties;
-    public WebDriver wd;
+    private WebDriver wd;
 
     private String browser;
+    private RegistrationHelper registrationHelper;
+    private FtpHelper ftp;
+    private MailHelper mailHelper;
+
 
     public ApplicationManager(String browser) {
         this.browser = browser;
@@ -31,22 +35,56 @@ public class ApplicationManager {
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
         //загружаем. В качесте параметра нужно передать ридер
 
-        if(browser.equals(BrowserType.CHROME)) {
-            wd = new ChromeDriver();
-        } else if (browser.equals(BrowserType.FIREFOX)) {
-            wd = new FirefoxDriver();
-        } else if (browser.equals(BrowserType.IE)) {
-            wd = new InternetExplorerDriver();
-        }
-//        wd = new ChromeDriver();
-        wd.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        wd.get(properties.getProperty("web.baseUrl"));
      }
 
-
     public void stop() {
-        wd.quit();
-
+        if (wd != null) {
+            wd.quit();
+        }
     }
 
+    public HttpSession newSession() {
+        return new HttpSession(this);
+    }
+
+    public String getProperty(String key) {
+        return properties.getProperty(key);
+    }
+
+    public RegistrationHelper registration() {
+        if (registrationHelper == null) {
+            registrationHelper = new RegistrationHelper(this);
+        }
+        return registrationHelper;
+    }
+
+    public WebDriver getDriver() {
+        if (wd == null) {
+            if(browser.equals(BrowserType.CHROME)) {
+                wd = new ChromeDriver();
+            } else if (browser.equals(BrowserType.IE)) {
+                wd = new FirefoxDriver();
+            } else if (browser.equals(BrowserType.FIREFOX)) {
+                wd = new InternetExplorerDriver();
+            }
+
+            wd.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            wd.get(properties.getProperty("web.baseUrl"));
+        }
+        return wd;
+    }
+
+    public FtpHelper ftp() { // он будет возвращать объект типа FtpHelper
+        if (ftp == null) {
+            ftp = new FtpHelper(this);
+        }
+        return ftp;
+    }
+
+    public MailHelper mail () {
+        if (mailHelper == null) {
+            mailHelper = new MailHelper(this);
+        }
+        return mailHelper;
+    }
 }

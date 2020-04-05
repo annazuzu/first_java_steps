@@ -38,11 +38,11 @@ public class ApplicationManager {
 
         dbHelper = new DbHelper();
 
-        if(browser.equals(BrowserType.CHROME)) {
+        if(browser.equals(BrowserType.IE)) {
             wd = new ChromeDriver();
         } else if (browser.equals(BrowserType.FIREFOX)) {
             wd = new FirefoxDriver();
-        } else if (browser.equals(BrowserType.IE)) {
+        } else if (browser.equals(BrowserType.CHROME)) {
             wd = new InternetExplorerDriver();
         }
 //        wd = new ChromeDriver();

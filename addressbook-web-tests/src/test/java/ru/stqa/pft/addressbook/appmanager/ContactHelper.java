@@ -91,7 +91,12 @@ public class ContactHelper extends HelperBase{
         alertAssept();
         contactsCache = null;
     }
-
+//------------------------------
+    public void choiceGroup(GroupData g) {
+        new Select(wd.findElement(By.name("group")))
+                .selectByVisibleText(g.getName());
+    }
+//------------------------------
 
     public void alertAssept() {
       wd.switchTo().alert().accept();
@@ -191,7 +196,7 @@ public class ContactHelper extends HelperBase{
         wd.findElement(By.name("group")).click();
 //        new Select(wd.findElement(By.name("group"))).selectByVisibleText(group.getName());
         new Select(wd.findElement(By.name("group"))).selectByValue(String.format("%s", group.getId()));
-        wd.findElement(By.name(group.getName())).click();
+        wd.findElement(By.name(String.valueOf(group.getId()))).click();
 
         } catch(Throwable t) {}
 

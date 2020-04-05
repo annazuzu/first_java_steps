@@ -11,6 +11,7 @@
             <class name="ru.stqa.pft.addressbook.tests.ContactPhoneTests"/>
             <class name="ru.stqa.pft.addressbook.tests.ContactAddToGroup"/>
             <class name="ru.stqa.pft.addressbook.tests.ContactRemoveFromGroup"/>
+            <class name="ru.stqa.pft.addressbook.tests.ContactAddToGroupNew"/>
         </classes>
     </test>
 </suite>
