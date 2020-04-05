@@ -22,11 +22,11 @@ public class RegistrationHelper extends HelperBase{
         click(By.cssSelector("input[type='submit']"));
     }
 
-    public void finish(String confirmationLink, String username, String password) {
+    public void finish(String confirmationLink, /*String username,*/ String password) {
         // проходим по ссылке:
         wd.get(confirmationLink);
         //заполняем два поля:
-        type(By.name("realname"), username);
+//        type(By.name("realname"), username);
         type(By.name("password"), password);
         type(By.name("password_confirm"), password);
         click(By.cssSelector("button[type='submit']"));
