@@ -28,7 +28,7 @@ public class ContactRemoveFromGroupNew extends TestBase {
                 oneDelGroup = group;
                 return group;
             }
-//            System.out.println("Что выдаст переменная g? " + group );
+
         }
 
         throw new RuntimeException("No new group found");
@@ -42,6 +42,7 @@ public class ContactRemoveFromGroupNew extends TestBase {
                 oneDelGroup = group;
                 return group;
             }
+
         }
         throw new RuntimeException("Sorry, but no(");
     }
@@ -57,9 +58,8 @@ public class ContactRemoveFromGroupNew extends TestBase {
             if (beforeDc.size() != 0) {
                 oneDelGroup = group;
                 return group;
-            } /*else {
-                    group = groups.iterator().next();
-                }*/
+            }
+
         }
 
         throw new RuntimeException("All groups is empty!");
@@ -118,7 +118,6 @@ public class ContactRemoveFromGroupNew extends TestBase {
         ContactData contact = new ContactData().
                 withId(oneContact.getId()).withName(oneContact.getName()).withSurname(oneContact.getSurname());
 
-//        oneDelGroup = oneGroupIsEmpty_orNot();
 
         oneDelGroup = reimportMeOneGroup(oneDelGroupId);
 

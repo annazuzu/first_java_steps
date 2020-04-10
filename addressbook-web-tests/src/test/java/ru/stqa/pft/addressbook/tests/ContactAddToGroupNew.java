@@ -86,9 +86,6 @@ public class ContactAddToGroupNew extends TestBase {
     @Test
     public void testContactAddToGroup() {
 
-//        oneAddGroup = findMeOneGroup();
-//        oneAddGroup = oneGroupIsFull_orNot();
-
         Groups groups = app.db().groups();
 
         oneAddGroup = oneGroupIsFull_orNot();
@@ -118,8 +115,6 @@ public class ContactAddToGroupNew extends TestBase {
         ContactData contact = new ContactData().
                 withId(oneContact.getId()).withName(oneContact.getName()).withSurname(oneContact.getSurname());
 
-//        oneAddGroup.getContacts();
-//        oneAddGroup = oneGroupIsFull_orNot();
 
         oneAddGroup = reimportMeOneGroup(oneAddGroupId);
 
