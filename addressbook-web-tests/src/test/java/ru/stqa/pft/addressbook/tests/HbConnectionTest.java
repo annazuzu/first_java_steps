@@ -7,7 +7,7 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import ru.stqa.pft.addressbook.model.ContactGroupData;
+import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.List;
 
@@ -37,24 +37,14 @@ public class HbConnectionTest {
 
     public void testHbConnection () {
 
-//        Session session = sessionFactory.openSession();
-//        session.beginTransaction();
-//        List<GroupData> result = session.createQuery( "from GroupData" ).list();
-//        for ( GroupData groups : result ) {
-//                System.out.println(groups);
-//            }
-//        session.getTransaction().commit();
-//        session.close();
-
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        List<ContactGroupData> result = session.createQuery("from ContactGroupData").list();
-
+        List<GroupData> result = session.createQuery( "from GroupData" ).list();
+        for ( GroupData groups : result ) {
+                System.out.println(groups);
+            }
         session.getTransaction().commit();
         session.close();
-        for ( ContactGroupData contactsGroup: result ) {
-            System.out.println(contactsGroup);
-        }
 
 //
 //        Session session2 = sessionFactory.openSession();

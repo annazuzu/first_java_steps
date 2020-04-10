@@ -253,15 +253,15 @@ public class ContactData {
         ContactData that = (ContactData) o;
         return id == that.id &&
                 Objects.equals(name, that.name) &&
-                Objects.equals(surname, that.surname) &&
-                Objects.equals(mobile, that.mobile) &&
-                Objects.equals(address, that.address) &&
-                Objects.equals(email, that.email);
+                Objects.equals(surname, that.surname); /*&&*/
+//                Objects.equals(mobile, that.mobile) &&
+//                Objects.equals(address, that.address) &&
+//                Objects.equals(email, that.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, surname, mobile, address, email);
+        return Objects.hash(id, name, surname/*, mobile, address, email*/);
     }
 
     @Override

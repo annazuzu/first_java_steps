@@ -22,7 +22,7 @@ public class ContactHelper extends HelperBase{
     }
 
     public void submitContactCreation() {
-      click(By.xpath("(//input[@name='submit'])[2]"));
+        click(By.xpath("(//input[@name='submit'])[2]"));
     }
 
 
@@ -55,7 +55,7 @@ public class ContactHelper extends HelperBase{
     }
 
     public void initContactCreation() {
-      click(By.linkText("add new"));
+        click(By.linkText("add new"));
     }
 
     public void create(ContactData contactData, boolean b) {
@@ -91,7 +91,7 @@ public class ContactHelper extends HelperBase{
         alertAssept();
         contactsCache = null;
     }
-//------------------------------
+    //------------------------------
     public void choiceGroup(GroupData g) {
         new Select(wd.findElement(By.name("group")))
                 .selectByVisibleText(g.getName());
@@ -99,11 +99,11 @@ public class ContactHelper extends HelperBase{
 //------------------------------
 
     public void alertAssept() {
-      wd.switchTo().alert().accept();
+        wd.switchTo().alert().accept();
     }
 
     public void clicktoDeleteButton() {
-      click(By.xpath("//input[@value='Delete']"));
+        click(By.xpath("//input[@value='Delete']"));
     }
 
     public void selectCheckbox(int indexContCheckbox) {
@@ -112,6 +112,14 @@ public class ContactHelper extends HelperBase{
 
     public void selectCheckboxByID(int id) {
         wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
+    }
+
+    public void selectCheckboxT (int id) {
+        wd.findElement(By.id(String.valueOf((id)))).click();
+    }
+
+    public void selectCheckboxXpath (int id) {
+        wd.findElement(By.xpath("//*[@id=\"" + id + "\"]")).click();
     }
 
     public void initContactModification(int id) {
@@ -141,9 +149,7 @@ public class ContactHelper extends HelperBase{
 
     }
 
-    public void selectCheckboxT (int id) {
-        wd.findElement(By.id(String.valueOf((id)))).click();
-    }
+
 
 
 //--------------------------------------
@@ -153,21 +159,21 @@ public class ContactHelper extends HelperBase{
 
         wd.findElement(By.name("to_group")).click();
 
-        if (contact.getGroups().size() > 0) {
+//        if (contact.getGroups().size() > 0) {
 //            Assert.assertTrue(contact.getGroups().size() == 1);
-            new Select(wd.findElement(By.name("to_group"))).selectByValue(String.format("%s", group.getId()));
+        new Select(wd.findElement(By.name("to_group"))).selectByValue(String.format("%s", group.getId()));
 
-        } else {
-
-            Assert.assertTrue(contact.getGroups().size() == 0);
-
-            app.goTo().groupPage1();
-            app.group().create(group);
-            app.goTo().homePage();
-            selectCheckboxByID(contact.getId());
-            wd.findElement(By.name("to_group")).click();
-            new Select(wd.findElement(By.name("to_group"))).selectByValue(String.format("%s", group.getId()));
-        }
+//        } else {
+//
+//            Assert.assertTrue(contact.getGroups().size() == 0);
+//
+//            app.goTo().groupPage1();
+//            app.group().create(group);
+//            app.goTo().homePage();
+//            selectCheckboxT(contact.getId());
+//            wd.findElement(By.name("to_group")).click();
+//            new Select(wd.findElement(By.name("to_group"))).selectByValue(String.format("%s", group.getId()));
+//        }
 
         wd.findElement(By.name("to_group")).click();
     }
@@ -176,29 +182,40 @@ public class ContactHelper extends HelperBase{
         wd.findElement(By.name("add")).click();
     }
 
+
     public void returnToGroupPage(GroupData group) {
-        wd.findElement(By.linkText("group page \"" + group.getName() + "\"")).click();
-        wd.findElement(By.name("group")).click();
+        try {
+            wd.findElement(By.linkText("group page \"" + group.getName() + "\"")).click();
+            /*wd.findElement(By.name("group")).click();*/
+        } catch(Throwable t) {}
     }
 
     public void returnToMainPage() {
-        new Select(wd.findElement(By.name("group"))).selectByVisibleText("[all]");
-        wd.findElement(By.name("group")).click();
+        try {
+            new Select(wd.findElement(By.name("group"))).selectByVisibleText("[all]");
+            wd.findElement(By.name("group")).click();
+        } catch(Throwable t) {}
     }
+
+    public void massCBmainPage() {
+        wd.findElement(By.id("MassCB")).click();
+    }
+
 
 // END ADD CONTACT TO GROUP
 // BEGIN REMOVE CONTACT FROM GROUP
 
     public void goToGroup(GroupData group) {
 
-        try {
+//        try {
 
         wd.findElement(By.name("group")).click();
-//        new Select(wd.findElement(By.name("group"))).selectByVisibleText(group.getName());
-        new Select(wd.findElement(By.name("group"))).selectByValue(String.format("%s", group.getId()));
-        wd.findElement(By.name(String.valueOf(group.getId()))).click();
+        new Select(wd.findElement(By.name("group"))).selectByVisibleText(group.getName());
+        //       new Select(wd.findElement(By.name("group"))).selectByValue(String.format("%s", group.getId()));
+//        wd.findElement(By.name(String.valueOf(group.getId()))).click();
+        wd.findElement(By.name("group")).click();
 
-        } catch(Throwable t) {}
+//        } catch(Throwable t) {}
 
     }
 
@@ -269,5 +286,19 @@ public class ContactHelper extends HelperBase{
         }
         return contacts;
     }
+
+    public List<ContactData> contactsOnSelectedGroupPage() {
+
+        List<ContactData> contactsBefore = new ArrayList<ContactData>();
+        List<WebElement> elements = wd.findElements(By.name("entry"));
+        for (WebElement element : elements) {
+            String name = element.findElements(By.tagName("td")).get(2).getText();
+            String surname = element.findElements(By.tagName("td")).get(1).getText();
+            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+            contactsBefore.add(new ContactData().withId(id).withName(name).withSurname(surname));
+        }
+        return contactsBefore;
+    }
+
 
 }

@@ -41,17 +41,4 @@ public class DbHelper {
         return new Contacts(result);
     }
 
-
-    public ContactsAndGroups contactsGroups(){
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        List<ContactGroupData> result = session.createQuery("from ContactGroupData").list();
-//        for ( ContactGroupData contactsGroup: result ) {
-//            System.out.println(contactsGroup);
-//        }
-        session.getTransaction().commit();
-        session.close();
-        return new ContactsAndGroups(result);
-    }
-
 }
