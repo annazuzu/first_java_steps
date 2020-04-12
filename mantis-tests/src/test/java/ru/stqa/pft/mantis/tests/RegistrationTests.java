@@ -25,9 +25,9 @@ public class RegistrationTests extends TestBase {
         long now = System.currentTimeMillis();
         //чтобы тест компилировался, создаем метод start:
         String user = String.format("user%s", now);
-        String email = String.format("user%s@localhost", now);
         String password = "test";
-//        app.james().createUser(user, password);
+        String email = String.format("user%s@localhost.localdomain", now);
+        /*app.james().createUser(user, password);*/
         app.registration().start(user, email);
         List<MailMessage> mailMessages = app.mail().waitForMail(2, 10000);
 //        List<MailMessage> mailMessages = app.james().waitForMail(user, password, 60000);

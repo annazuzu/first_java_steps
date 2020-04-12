@@ -21,7 +21,9 @@ public class ApplicationManager {
     private RegistrationHelper registrationHelper;
     private FtpHelper ftp;
     private MailHelper mailHelper;
-//    private JamesHelper jamesHelper;
+    private JamesHelper jamesHelper;
+    private AdminCUPHelper changePass;
+    private DbHelper dbHelper;
 
 
     public ApplicationManager(String browser) {
@@ -89,10 +91,26 @@ public class ApplicationManager {
         return mailHelper;
     }
 
-//    public JamesHelper james () {
-//        if (jamesHelper == null) {
-//            jamesHelper = new JamesHelper(this);
-//        }
-//        return jamesHelper;
-//    }
+    public JamesHelper james () {
+        if (jamesHelper == null) {
+            jamesHelper = new JamesHelper(this);
+        }
+        return jamesHelper;
+    }
+
+    public AdminCUPHelper changePass () {
+        if (changePass == null) {
+            changePass = new AdminCUPHelper(this);
+        }
+        return changePass;
+    }
+
+    public DbHelper db() {
+        if (dbHelper == null) {
+            dbHelper = new DbHelper(this);
+        }
+        return dbHelper;
+    }
+
+
 }

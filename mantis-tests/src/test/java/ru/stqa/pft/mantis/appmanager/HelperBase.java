@@ -1,6 +1,8 @@
 package ru.stqa.pft.mantis.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 
 import java.io.File;
@@ -34,5 +36,25 @@ public class HelperBase {
             String existingText = wd.findElement(locator).getAttribute("value");
             wd.findElement(locator).sendKeys(file.getAbsolutePath());
         }
+    }
+
+    // Неважное - какие-то обработки ошибок, скопированные с Хелпера для адресной книги:
+    public boolean isAlertPresent() {
+        try {
+            wd.switchTo().alert();
+            return true;
+        } catch (NoAlertPresentException e) {
+            return false;
+        }
+    }
+
+    protected boolean isElementPresent(By locator) {
+        try {
+            wd.findElement(locator);
+            return true;
+        } catch (NoSuchElementException ex) {
+            return false;
+        }
+
     }
 }

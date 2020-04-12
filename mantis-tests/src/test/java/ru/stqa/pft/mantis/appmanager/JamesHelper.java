@@ -65,15 +65,15 @@ public class JamesHelper {
             e.printStackTrace();
         }
 
-        readUntil("Login id:");
-        write("");
-        readUntil("Password:");
-        write("");
+//        readUntil("Login id:");
+//        write("root");
+//        readUntil("Password:");
+//        write("root");
 
         readUntil("Login id:");
-        write("");
+        write(login);
         readUntil("Password:");
-        write("");
+        write(password);
 
         readUntil("Welcome " + login + ". HELP for a list of commands");
     }
