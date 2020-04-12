@@ -54,6 +54,7 @@ $g_signup_use_captcha = OFF;
 # --- Email Configuration ---
 $g_phpMailer_method = PHPMAILER_METHOD_SMTP; # or PHPMAILER_METHOD_SMTP, PHPMAILER_METHOD_SENDMAIL
 $g_smtp_host			= 'localhost';			# used with PHPMAILER_METHOD_SMTP
+$g_smtp_port            = 587;
 $g_smtp_username		= 'root';					# used with PHPMAILER_METHOD_SMTP
 $g_smtp_password		= 'root';					# used with PHPMAILER_METHOD_SMTP
 $g_webmaster_email      = 'webmaster@example.com';
