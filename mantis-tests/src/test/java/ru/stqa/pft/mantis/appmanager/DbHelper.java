@@ -29,7 +29,7 @@ public class DbHelper extends HelperBase {
     public MantisUsers users() {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        List<MantisUserData> result = session.createQuery( "from MantisUserData" ).list();
+        List<MantisUserData> result = session.createQuery( "from MantisUserData where username != 'administrator'" ).list();
         session.getTransaction().commit();
         session.close();
         return new MantisUsers(result);

@@ -40,11 +40,12 @@ public class HbConnectionTest {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         List<MantisUserData> result = session.createQuery( "from MantisUserData" ).list();
-        for ( MantisUserData users : result ) {
-                System.out.println(users);
-            }
         session.getTransaction().commit();
         session.close();
+
+        for ( MantisUserData user : result ) {
+            System.out.println(user);
+        }
 
     }
 

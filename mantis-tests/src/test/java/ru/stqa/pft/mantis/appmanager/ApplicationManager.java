@@ -112,5 +112,4 @@ public class ApplicationManager {
         return dbHelper;
     }
 
-
 }

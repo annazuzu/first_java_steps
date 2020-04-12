@@ -18,8 +18,20 @@ public class AdminCUPHelper extends HelperBase {
 //    driver.findElement(By.id("password")).sendKeys("root");
 //    driver.findElement(By.xpath("//input[@value='Войти']")).click();
 //    driver.findElement(By.linkText("usertestone")).click();
+
+
+    public void start(String username, String password) {
+        wd.get(app.getProperty("web.baseUrl") + "/manage_user_page.php"); //*после этого драйвером можно спокойно пользоваться
+        type(By.name("username"), username);
+        click(By.cssSelector("input[type='submit']"));
+        type(By.name("password"), password);
+        click(By.cssSelector("input[type='submit']"));
+    }
+
+
     public void goToManageUserPage () {
-        wd.get("http://localhost/mantisbt-2.24.0/mantisbt-2.24.0/manage_user_page.php");
+//        wd.get("http://localhost/mantisbt-2.24.0/mantisbt-2.24.0/manage_user_page.php");
+        wd.findElement(By.id("username")).sendKeys("administrator");
         wd.findElement(By.id("password")).sendKeys("root");
         wd.findElement(By.xpath("//input[@value='Войти']")).click();
     }
