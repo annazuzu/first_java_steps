@@ -19,7 +19,8 @@ public class RegistrationHelper extends HelperBase{
         wd.get(app.getProperty("web.baseUrl") + "/signup_page.php"); //*после этого драйвером можно спокойно пользоваться
         type(By.name("username"), username);
         type(By.name("email"), email);
-        click(By.cssSelector("input[type='submit']"));
+
+        click(By.cssSelector("input[value='Зарегистрироваться']"));
     }
 
     public void finish(String confirmationLink, /*String username,*/ String password) {
