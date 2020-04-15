@@ -8,7 +8,7 @@ public class SquareTests {
 
     public void testArea(){
         Square s = new Square(5);
-        assert s.area() == 20;
+        assert s.area() == 25;
     }
 //  1. Проверить египетский треугольник с соотношением сторон 3:4:5.
 //  2. Проверить, если у одной точки отрицательное значение (5, 12, 13).
