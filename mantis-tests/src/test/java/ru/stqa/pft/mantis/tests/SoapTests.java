@@ -22,7 +22,7 @@ public class SoapTests extends TestBase{
     }
 
     @Test
-    public void getProjests() throws MalformedURLException, ServiceException, RemoteException {
+    public void getProjects() throws MalformedURLException, ServiceException, RemoteException {
         Set<Project> projects = app.soap().getProjects();
         System.out.println(projects.size());
 //        Project oneProject = projects.iterator().next();
@@ -31,7 +31,6 @@ public class SoapTests extends TestBase{
             skipIfNotFixed(project.getId());
             System.out.println(project.getName());
         }
-
     }
 
 

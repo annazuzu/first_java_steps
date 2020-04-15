@@ -1,24 +1,26 @@
-package ru.stqa.pft.rest;
+package ru.stqa.pft.rest.tests;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import com.google.gson.reflect.TypeToken;
-import org.apache.http.client.fluent.Executor;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.message.BasicNameValuePair;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import ru.stqa.pft.rest.model.Issue;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.rmi.RemoteException;
 import java.util.Set;
 
 public class RestTests extends TestBase{
 
-    @Test
+    @Test (enabled = false)
     public void testCreateIssue() throws IOException {
+
         Set<Issue> oldIssues = getIssues(); // создаем "старый" набор до изменения + создаем новый класс
-        Issue newIssue = new Issue().withSubject("Anna test issue").withDescription("New Anna test issue").withStatus("Open");// создаем новый объект, вызываем конструктор
+        Issue newIssue = new Issue().withSubject("Anna test issue").withDescription("New Anna test issue").withStatus("Open");
+        // создаем новый объект, вызываем конструктор
         int issueID = createIssue(newIssue); //создаем проблему - новый метод
         Set<Issue> newIssues = getIssues(); // создаем новый набор
         Assert.assertEquals(newIssues.size(), oldIssues.size() + 1);// сравниваем
@@ -27,25 +29,27 @@ public class RestTests extends TestBase{
 
     }
 
+    // Сформируем список багов не в статусе "Open":
 
-    // Геттеры:
-    private Set<Issue> getIssues() throws IOException {
-        String json = getExecutor().execute(Request.Get("https://bugify.stqa.ru/api/issues.json?limit=500").
-                connectTimeout(6000).
-                socketTimeout(6000)).
-                returnContent().asString();
-        JsonElement parsed = JsonParser.parseString(json);
-        JsonElement issues = parsed.getAsJsonObject().get("issues");
-        return new Gson().fromJson(issues, new TypeToken<Set<Issue>>(){}.getType());
+    @Test
+    public void getIssueNotOpen() throws IOException {
+        Set<Issue> issues = getIssues();
+        System.out.println(issues.size());
 
-    }
+        for (Issue issue : issues) {
 
-    private Executor getExecutor() {
-        return Executor.newInstance().auth("288f44776e7bec4bf44fdfeb1e646490", "");
+            if (isIssueOpen(issue.getId()) == true) {
+                System.out.println(issue.getSubject());
+                System.out.println(issue.getDescription());
+                System.out.println(issue.getStatus());
+                break;
+            } else {
+                skipIfNotFixed(issue.getId());
+            }
+        }
     }
 
     // Метод создания:
-
     private int createIssue(Issue newIssue) throws IOException {
         String json = getExecutor().execute(Request.Post("https://bugify.stqa.ru/api/issues.json?limit=500").
                 bodyForm(new BasicNameValuePair("subject", newIssue.getSubject()),
