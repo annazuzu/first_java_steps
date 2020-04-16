@@ -68,7 +68,6 @@ public class ApplicationManager {
 
     public WebDriver getDriver() throws MalformedURLException {
 
-
         if (wd == null) {
             if ("".equals(properties.getProperty("selenium.server"))) {
 
