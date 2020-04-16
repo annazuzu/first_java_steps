@@ -3,12 +3,14 @@ package ru.stqa.pft.mantis.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import java.net.MalformedURLException;
+
 public class RegistrationHelper extends HelperBase{
 
 //    private final ApplicationManager app;
 //    private WebDriver wd;
 
-    public RegistrationHelper(ApplicationManager app) {
+    public RegistrationHelper(ApplicationManager app) throws MalformedURLException {
         super(app);
 //        this.app = app;
 //        wd = app.getDriver(); //* нужно попросить ссылку на драйвер у менеджера

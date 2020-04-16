@@ -59,7 +59,7 @@ public class ApplicationManager {
         return properties.getProperty(key);
     }
 
-    public RegistrationHelper registration() {
+    public RegistrationHelper registration() throws MalformedURLException {
         if (registrationHelper == null) {
             registrationHelper = new RegistrationHelper(this);
         }
@@ -112,14 +112,14 @@ public class ApplicationManager {
         return jamesHelper;
     }
 
-    public AdminCUPHelper changePass () {
+    public AdminCUPHelper changePass () throws MalformedURLException {
         if (changePass == null) {
             changePass = new AdminCUPHelper(this);
         }
         return changePass;
     }
 
-    public DbHelper db() {
+    public DbHelper db() throws MalformedURLException {
         if (dbHelper == null) {
             dbHelper = new DbHelper(this);
         }

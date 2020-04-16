@@ -2,9 +2,11 @@ package ru.stqa.pft.mantis.appmanager;
 
 import org.openqa.selenium.By;
 
+import java.net.MalformedURLException;
+
 public class AdminCUPHelper extends HelperBase {
 
-    public AdminCUPHelper(ApplicationManager app) {
+    public AdminCUPHelper(ApplicationManager app) throws MalformedURLException {
         super(app);
     }
 

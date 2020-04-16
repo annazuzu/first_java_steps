@@ -8,13 +8,14 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import ru.stqa.pft.mantis.model.MantisUserData;
 import ru.stqa.pft.mantis.model.MantisUsers;
 
+import java.net.MalformedURLException;
 import java.util.List;
 
 public class DbHelper extends HelperBase {
 
     private final SessionFactory sessionFactory;
 
-    public DbHelper(ApplicationManager app) {
+    public DbHelper(ApplicationManager app) throws MalformedURLException {
         super(app);
         //копируем кусок кода из метода setUp()
         // A SessionFactory is set up once for an application!
