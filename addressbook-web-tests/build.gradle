@@ -33,6 +33,10 @@ task testGroups(type: Test) {
     useTestNG() {
         suites 'src/test/resources/testng-groups.xml'
     }
+    if (project.hasProperty('platform')) {
+        systemProperty 'platform', "${platform}"
+        //
+    }
     if (project.hasProperty('browser')) {
         systemProperty 'browser', "${browser}"
         //проброс настроек в запускаемую Java-машину
@@ -50,6 +54,10 @@ task testGroups(type: Test) {
 task testContacts(type: Test) {
     useTestNG() {
         suites 'src/test/resources/testng-contacts.xml'
+    }
+    if (project.hasProperty('platform')) {
+        systemProperty 'platform', "${platform}"
+        //
     }
     if (project.hasProperty('browser')) {
         systemProperty 'browser', "${browser}"
