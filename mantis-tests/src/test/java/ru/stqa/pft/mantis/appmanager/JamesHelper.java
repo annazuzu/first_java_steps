@@ -50,7 +50,7 @@ public class JamesHelper {
         closeTelnetSession();
     }
 
-    private void initTelnetSession() {
+    public void initTelnetSession() {
         mailserver = app.getProperty("mailserver.host");
         int port = Integer.parseInt(app.getProperty("mailserver.port"));
         String login = app.getProperty("mailserver.adminlogin");
@@ -109,7 +109,7 @@ public class JamesHelper {
         }
     }
 
-    private void closeTelnetSession() {
+    public void closeTelnetSession() {
         write("quit");
     }
 
@@ -121,12 +121,12 @@ public class JamesHelper {
         closeFolder(inbox);
     }
 
-    private void closeFolder(Folder folder) throws MessagingException {
+    public void closeFolder(Folder folder) throws MessagingException {
         folder.close(true);
         store.close();
     }
 
-    private Folder openInbox(String username, String password) throws MessagingException {
+    public Folder openInbox(String username, String password) throws MessagingException {
         store = mailSession.getStore("pop3" );
         store.connect(mailserver, username, password );
         Folder folder = store.getDefaultFolder().getFolder("INBOX");

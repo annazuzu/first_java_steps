@@ -26,7 +26,7 @@ public class ApplicationManager {
     private FtpHelper ftp;
     private MailHelper mailHelper;
     private JamesHelper jamesHelper;
-    private AdminCUPHelper changePass;
+    private AdminHelper changePass;
     private DbHelper dbHelper;
     private SoapHelper soapHelper;
 
@@ -112,9 +112,9 @@ public class ApplicationManager {
         return jamesHelper;
     }
 
-    public AdminCUPHelper changePass () throws MalformedURLException {
+    public AdminHelper changePass () throws MalformedURLException {
         if (changePass == null) {
-            changePass = new AdminCUPHelper(this);
+            changePass = new AdminHelper(this);
         }
         return changePass;
     }

@@ -1,10 +1,7 @@
 package ru.stqa.pft.mantis.tests;
 
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.lanwen.verbalregex.VerbalExpression;
-import ru.stqa.pft.mantis.appmanager.HttpSession;
 import ru.stqa.pft.mantis.model.MailMessage;
 import ru.stqa.pft.mantis.model.MantisUserData;
 import ru.stqa.pft.mantis.model.MantisUsers;
@@ -17,37 +14,38 @@ import static org.testng.AssertJUnit.assertTrue;
 
 public class AdminChangeUsersPassword extends TestBase {
 
-    @BeforeMethod
-    public void startMailServer () {
-        app.mail().start();
-    }
+    // Пользуюсь Джеймсом:
 
     @Test
-
-    public void testAdminChangeUsersPassword () throws IOException, MessagingException {
-
-        String changedPassword = "changetest";
+    public void testAdminChangeUsersPassword () throws IOException, MessagingException, InterruptedException {
 
         // Получаем список юзеров из БД:
         MantisUsers users = app.db().users();
-        MantisUserData user = users.iterator().next();
+        MantisUserData user = users.iterator().next(); // берем человека
+
+        String password = "test"; // потом берем его пароль
+        String changedPassword = "test";
+        String username = user.getUsername();
 
         // Логинимся под админом:
         app.newSession().loginCh("administrator", "root"); // это ок
-//        app.newSession().isLoggedInAs("administrator");
-
         app.changePass().start("administrator", "root");
+        Thread.sleep(5000);
         app.changePass().clickOnUserName(user.getId());
-        app.changePass().clickButtonResetPassword();
-//        app.newSession().logout();
 
-        List<MailMessage> mailMessages = app.mail().waitForMail(2, 10000);
+        // открываем соединение:
+        app.james().initTelnetSession();
+        List<MailMessage> allMailbef = app.james().getAllMail(username, password);
+        Thread.sleep(5000);
+        app.changePass().clickButtonResetPassword();
+        Thread.sleep(5000);
+        // Далее ждём почту у выбранного юзверя:
+        List<MailMessage> mailMessages = app.changePass().waitForMail(username, "test", 60000, allMailbef);
         String confirmationLink = findConfirmationLink(mailMessages, user.getEmail());
         app.registration().finish(confirmationLink, changedPassword);
-
-        HttpSession session = app.newSession();
-        assertTrue(session.loginCh(user.getUsername(), changedPassword));
-        assertTrue(session.isLoggedInAs(user.getUsername()));
+        // Закрываем соединение:
+        app.james().closeTelnetSession();
+        assertTrue(app.newSession().loginCh(username, changedPassword));
 
     }
 
@@ -61,9 +59,5 @@ public class AdminChangeUsersPassword extends TestBase {
         return  regex.getText(mailMessage.text);
     }
 
-    @AfterMethod(alwaysRun = true)
-    public void stopMailServer () {
-        app.mail().stop();
-    }
 }
 

@@ -89,6 +89,8 @@ public class MantisUserData {
         return "MantisUserData{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
                 '}';
     }
 }
