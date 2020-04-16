@@ -6,12 +6,13 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 
 import java.io.File;
+import java.net.MalformedURLException;
 
 public class HelperBase {
     protected ApplicationManager app;
     protected WebDriver wd;
 
-    public HelperBase(ApplicationManager app) {
+    public HelperBase(ApplicationManager app) throws MalformedURLException {
         this.app = app;
         this.wd = app.getDriver();
     }
