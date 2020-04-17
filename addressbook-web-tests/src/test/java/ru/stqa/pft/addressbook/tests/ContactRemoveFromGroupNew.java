@@ -29,6 +29,7 @@ public class ContactRemoveFromGroupNew extends TestBase {
         if (app.db().groups().size() == 0)
         {   app.goTo().groupPage1();
             app.group().create(new GroupData().withName("gr45"));
+            app.goTo().homePage();
         }
 
         // Контакты вообще есть? Если нет, то создаем один контакт:
@@ -36,13 +37,14 @@ public class ContactRemoveFromGroupNew extends TestBase {
             app.goTo().homePage();
             ContactData contact = new ContactData().withName("Ivan").withSurname("Klevin");
             app.сontact().create(contact, true);
+            app.goTo().homePage();
             // Если true, то создается контакт с уже добавленной группой.
             // Если false, то создается контакт, не привязанный к группе.
         }
     }
 
     @Test
-    public void testContactRemoveFromGroup() {
+    public void testContactRemoveFromGroup() throws InterruptedException {
 
         Groups groups = app.db().groups();
 
@@ -113,7 +115,7 @@ public class ContactRemoveFromGroupNew extends TestBase {
         throw new RuntimeException("Sorry, but no(");
     }
 
-    public GroupData oneGroupIsEmpty_orNot() {
+    public GroupData oneGroupIsEmpty_orNot() throws InterruptedException {
         Groups groups = app.db().groups();
 
         for (GroupData group : groups) {
@@ -140,7 +142,7 @@ public class ContactRemoveFromGroupNew extends TestBase {
                 app.сontact().goToGroup(groupForClean);
                 app.сontact().massCBcheckbox();
                 app.сontact().clickToRemoveButton();
-                app.сontact().returnToMainPage();
+                app.goTo().homePage();
 
             }
         }

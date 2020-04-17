@@ -206,11 +206,12 @@ public class ContactHelper extends HelperBase{
 // END ADD CONTACT TO GROUP
 // BEGIN REMOVE CONTACT FROM GROUP
 
-    public void goToGroup(GroupData group) {
+    public void goToGroup(GroupData group) throws InterruptedException {
 
 //        try {
 
         wd.findElement(By.name("group")).click();
+        Thread.sleep(5000);
         new Select(wd.findElement(By.name("group"))).selectByVisibleText(group.getName());
         //       new Select(wd.findElement(By.name("group"))).selectByValue(String.format("%s", group.getId()));
 //        wd.findElement(By.name(String.valueOf(group.getId()))).click();

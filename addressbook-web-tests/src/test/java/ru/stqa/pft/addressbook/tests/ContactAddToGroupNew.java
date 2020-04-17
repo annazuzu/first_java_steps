@@ -25,6 +25,7 @@ public class ContactAddToGroupNew extends TestBase {
         if (app.db().groups().size() == 0)
         {   app.goTo().groupPage1();
             app.group().create(new GroupData().withName("gr3"));
+            app.goTo().homePage();
         }
 
         // Контакты вообще есть? Если нет, то создаем 1 контакт.
@@ -32,6 +33,7 @@ public class ContactAddToGroupNew extends TestBase {
             app.goTo().homePage();
             ContactData contact = new ContactData().withName("Alex").withSurname("Smotrov");
             app.сontact().create(contact, false);
+            app.goTo().homePage();
             // Если true, то создается контакт с уже добавленной группой.
             // Если false, то создается контакт, не привязанный к группе.
         }
