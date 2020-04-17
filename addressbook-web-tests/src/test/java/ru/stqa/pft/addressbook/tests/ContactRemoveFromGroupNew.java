@@ -141,7 +141,7 @@ public class ContactRemoveFromGroupNew extends TestBase {
                 app.сontact().massCBcheckbox();
                 app.сontact().clickToRemoveButton();
                 app.сontact().returnToMainPage();
-                
+
             }
         }
 
