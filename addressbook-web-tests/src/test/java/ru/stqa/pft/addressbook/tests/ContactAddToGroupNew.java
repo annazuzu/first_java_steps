@@ -41,63 +41,28 @@ public class ContactAddToGroupNew extends TestBase {
         throw new RuntimeException("Sorry, but no(");
     }
 
-//    public GroupData oneGroupIsFull_orNot() {
-////
-////        Groups groups = app.db().groups();
-////        Contacts contacts = app.db().contacts();
-////
-////        for (GroupData group : groups) {
-////
-////            Contacts beforeGc = null;
-////            beforeGc = group.getContacts();
-////
-////            if (beforeGc.size() < contacts.size()) {
-////                oneAddGroup = group;
-////                return group;
-////            }
-////
-////        }
-////        throw new RuntimeException("All groups is full!");
-////    }
-
-
-    public GroupData chooseMeGroup (boolean isBeforeContactsTrue) {
-
-
-        if (isBeforeContactsTrue == true) {
-            oneAddGroup = group;
-            return group;
-        } else {
-            app.сontact().create(contact, true);
-            app.goTo().homePage();
-        }
-
-    }
-
-    public Contacts oneGroup_manyContacts () {
+    public GroupData oneGroupIsFull_orNot() {
 
         Groups groups = app.db().groups();
         Contacts contacts = app.db().contacts();
-        Contacts beforeGc = null;
 
         for (GroupData group : groups) {
+
+            Contacts beforeGc = null;
             beforeGc = group.getContacts();
+
+            if (beforeGc.size() < contacts.size()) {
+                oneAddGroup = group;
+                return group;
+            } else {
+                GroupData groupEmpty = new GroupData().withName("Group").withHeader("Tf").withFooter("all groups is full!");
+                app.goTo().groupPage();
+                app.group().create(groupEmpty);
+                return groupEmpty;
+            }
+
         }
-
-        return beforeGc;
-
-    }
-
-    boolean isBeforeContactsTrue (Contacts beforeGc)  {
-        Contacts contacts = app.db().contacts();
-
-        if(beforeGc.size() < contacts.size()){
-            return true;
-        }
-        else {
-            return false;
-        }
-
+        throw new RuntimeException("All groups is full!"); // не смогла победить эту строчку
     }
 
     @BeforeTest
