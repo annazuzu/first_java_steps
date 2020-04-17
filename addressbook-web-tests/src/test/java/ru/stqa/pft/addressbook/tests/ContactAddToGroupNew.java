@@ -41,7 +41,7 @@ public class ContactAddToGroupNew extends TestBase {
     }
 
     @Test
-    public void testContactAddToGroup() {
+    public void testContactAddToGroup() throws InterruptedException {
 
         Groups groups = app.db().groups();
 
@@ -112,7 +112,7 @@ public class ContactAddToGroupNew extends TestBase {
         throw new RuntimeException("Sorry, but no(");
     }
 
-    public GroupData oneGroupIsFull_orNot() {
+    public GroupData oneGroupIsFull_orNot() throws InterruptedException {
 
         Groups groups = app.db().groups();
         Contacts contacts = app.db().contacts();
@@ -126,10 +126,23 @@ public class ContactAddToGroupNew extends TestBase {
                 oneAddGroup = group;
                 return group;
             } else {
-                GroupData groupEmpty = new GroupData().withName("Group").withHeader("Tf").withFooter("all groups is full!");
-                app.goTo().groupPage();
-                app.group().create(groupEmpty);
-                return groupEmpty;
+//                GroupData groupEmpty = new GroupData().withName("Group").withHeader("Tf").withFooter("all groups is full!");
+//                app.goTo().groupPage();
+//                app.group().create(groupEmpty);
+//                return groupEmpty;
+
+                // альтернативный вариант:
+                // - переходим на страницу рандомной группы;
+                // - выделяем все чекбоксы контактов;
+                // - удаляем все контакты внутри данной группы;
+
+                GroupData groupForClean = findMeOneGroup();
+                app.сontact().goToGroup(groupForClean);
+                app.сontact().massCBcheckbox();
+                app.сontact().clickToRemoveButton();
+                app.сontact().returnToGroupPage(groupForClean);
+                app.сontact().returnToMainPage();
+                testContactAddToGroup();
             }
 
         }
