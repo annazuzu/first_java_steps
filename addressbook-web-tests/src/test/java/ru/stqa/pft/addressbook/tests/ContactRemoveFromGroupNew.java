@@ -72,7 +72,6 @@ public class ContactRemoveFromGroupNew extends TestBase {
         ContactData contact = new ContactData().
                 withId(oneContact.getId()).withName(oneContact.getName()).withSurname(oneContact.getSurname());
 
-
         oneDelGroup = reimportMeOneGroup(oneDelGroupId);
 
         Contacts after = null;
@@ -127,10 +126,22 @@ public class ContactRemoveFromGroupNew extends TestBase {
                 return group;
             } else {
                 // создать контакт, добавленный в какую-либо группу:
-                ContactData contact = new ContactData().withName("All groups").withSurname("If").withAddress("is empty").
-                        inGroup(groups.iterator().next());
-                app.сontact().create(contact, true);
-                app.goTo().homePage();
+//                ContactData contact = new ContactData().withName("All groups").withSurname("If").withAddress("is empty").
+//                        inGroup(groups.iterator().next());
+//                app.сontact().create(contact, true);
+//                app.goTo().homePage();
+
+                // альтернативный вариант:
+                // - переходим на страницу рандомной группы;
+                // - выделяем все чекбоксы контактов;
+                // - удаляем все контакты внутри данной группы;
+
+                GroupData groupForClean = findMeOneGroup();
+                app.сontact().goToGroup(groupForClean);
+                app.сontact().massCBcheckbox();
+                app.сontact().clickToRemoveButton();
+                app.сontact().returnToMainPage();
+                
             }
         }
 

@@ -197,9 +197,10 @@ public class ContactHelper extends HelperBase{
         } catch(Throwable t) {}
     }
 
-    public void massCBmainPage() {
+    public void massCBcheckbox() {
         wd.findElement(By.id("MassCB")).click();
     }
+
 
 
 // END ADD CONTACT TO GROUP
