@@ -129,10 +129,10 @@ public class ContactRemoveFromGroupNew extends TestBase {
             } else {
                 // создать контакт, добавленный в какую-либо группу:
                 ContactData contact = new ContactData().withName("All groups").withSurname("If").withAddress("is empty").
-                        inGroup(groups.iterator().next());
+                        inGroup(group);
                 app.сontact().create(contact, true);
                 app.goTo().homePage();
-                testContactRemoveFromGroup();
+                return group;
 
             }
         }

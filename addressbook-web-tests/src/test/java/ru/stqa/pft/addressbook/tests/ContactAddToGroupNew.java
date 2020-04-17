@@ -142,7 +142,7 @@ public class ContactAddToGroupNew extends TestBase {
                 app.сontact().clickToRemoveButton();
                 app.сontact().returnToGroupPage(groupForClean);
                 app.сontact().returnToMainPage();
-                testContactAddToGroup();
+                return groupForClean;
             }
 
         }
