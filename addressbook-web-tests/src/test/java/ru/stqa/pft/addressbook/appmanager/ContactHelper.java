@@ -211,7 +211,7 @@ public class ContactHelper extends HelperBase{
 //        try {
 
         wd.findElement(By.name("group")).click();
-        Thread.sleep(5000);
+        Thread.sleep(1000);
         new Select(wd.findElement(By.name("group"))).selectByVisibleText(group.getName());
         //       new Select(wd.findElement(By.name("group"))).selectByValue(String.format("%s", group.getId()));
 //        wd.findElement(By.name(String.valueOf(group.getId()))).click();

@@ -3,6 +3,7 @@ package ru.stqa.pft.addressbook.tests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import ru.stqa.pft.addressbook.appmanager.ApplicationManager;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
@@ -40,6 +41,24 @@ public class ContactRemoveFromGroupNew extends TestBase {
             app.goTo().homePage();
             // Если true, то создается контакт с уже добавленной группой.
             // Если false, то создается контакт, не привязанный к группе.
+        }
+
+        // Берём все группы и проверяем есть ли у них внутри контакты:
+        int count = 0;
+        int groupsize = app.db().groups().size();
+        Groups groups = app.db().groups();
+        for (GroupData group : groups) {
+            Contacts gc = group.getContacts();
+            if (gc.size() == 0) {
+                count++;
+            }
+        }
+
+        if (count == groupsize) {
+            System.out.println("Все группы пусты!");
+            GroupData group = findMeOneGroup();
+            // выбирает любой контакт и добавляет его в любую группу, потом переходит на главную страницу:
+            app.gc().cAddtog(group, app);
         }
     }
 
@@ -126,19 +145,10 @@ public class ContactRemoveFromGroupNew extends TestBase {
             if (beforeDc.size() != 0) {
                 oneDelGroup = group;
                 return group;
-            } else {
-                // создать контакт, добавленный в какую-либо группу:
-                ContactData contact = new ContactData().withName("All groups").withSurname("If").withAddress("is empty").
-                        inGroup(group);
-                app.сontact().create(contact, true);
-                app.goTo().homePage();
-                return group;
-
             }
+
         }
-
         throw new RuntimeException("All groups is empty!"); // не смогла победить эту строчку
-
     }
 
 }

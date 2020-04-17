@@ -28,6 +28,7 @@ public class ApplicationManager {
     public GroupHelper groupHelper;
     private String browser;
     private DbHelper dbHelper;
+    private GaddRemoveCHelper gcHelper;
 
     public ApplicationManager(String browser) {
         this.browser = browser;
@@ -65,6 +66,7 @@ public class ApplicationManager {
         navigationHelper = new NavigationHelper(wd);
         sessionHelper = new SessionHelper(wd);
         contactHelper = new ContactHelper(wd);
+        gcHelper = new GaddRemoveCHelper(wd);
         sessionHelper.login(properties.getProperty("web.adminLogin"), properties.getProperty("web.adminPassword"));
 
     }
@@ -93,5 +95,9 @@ public class ApplicationManager {
 
     public DbHelper db() {
         return dbHelper;
+    }
+
+    public GaddRemoveCHelper gc() {
+        return gcHelper;
     }
 }

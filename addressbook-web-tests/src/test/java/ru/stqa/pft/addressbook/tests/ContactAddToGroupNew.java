@@ -16,7 +16,7 @@ public class ContactAddToGroupNew extends TestBase {
     private Contacts after;
 
     @BeforeTest
-    public void ensurePreconditions() {
+    public void ensurePreconditions() throws InterruptedException {
 
         oneContact = null;
         oneAddGroup = null;
@@ -36,6 +36,24 @@ public class ContactAddToGroupNew extends TestBase {
             app.goTo().homePage();
             // Если true, то создается контакт с уже добавленной группой.
             // Если false, то создается контакт, не привязанный к группе.
+        }
+
+        // Берём все группы и проверяем есть ли у них внутри контакты:
+        int count = 0;
+        int contactssize = app.db().contacts().size();
+        Groups groups = app.db().groups();
+        for (GroupData group : groups) {
+            Contacts gc = group.getContacts();
+            if (gc.size() == contactssize) {
+                count++;
+            }
+        }
+
+        if (count == contactssize) {
+            System.out.println("Все группы полны!");
+            GroupData group = findMeOneGroup();
+            // переходит в выбранную группу, удаляет все контакты, переходит на главную:
+            app.gc().gDeleteAllc(group, app);
         }
 
     }
@@ -125,26 +143,7 @@ public class ContactAddToGroupNew extends TestBase {
             if (beforeGc.size() < contacts.size()) {
                 oneAddGroup = group;
                 return group;
-            } else {
-//                GroupData groupEmpty = new GroupData().withName("Group").withHeader("Tf").withFooter("all groups is full!");
-//                app.goTo().groupPage();
-//                app.group().create(groupEmpty);
-//                return groupEmpty;
-
-                // альтернативный вариант:
-                // - переходим на страницу рандомной группы;
-                // - выделяем все чекбоксы контактов;
-                // - удаляем все контакты внутри данной группы;
-
-                GroupData groupForClean = findMeOneGroup();
-                app.сontact().goToGroup(groupForClean);
-                app.сontact().massCBcheckbox();
-                app.сontact().clickToRemoveButton();
-                app.сontact().returnToGroupPage(groupForClean);
-                app.сontact().returnToMainPage();
-                return groupForClean;
             }
-
         }
         throw new RuntimeException("All groups is full!"); // не смогла победить эту строчку
     }
