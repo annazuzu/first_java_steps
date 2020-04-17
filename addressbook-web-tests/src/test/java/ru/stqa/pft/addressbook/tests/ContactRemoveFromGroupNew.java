@@ -20,64 +20,18 @@ public class ContactRemoveFromGroupNew extends TestBase {
 
     @BeforeTest
 
-    public GroupData findMeOneGroup () {
-        Groups groups = app.db().groups();
-
-        for (GroupData group : groups) {
-            if (group != null) {
-                oneDelGroup = group;
-                return group;
-            }
-
-        }
-
-        throw new RuntimeException("No new group found");
-    }
-
-    public GroupData reimportMeOneGroup(int oneDelGroupId) {
-        Groups groups = app.db().groups();
-
-        for (GroupData group : groups) {
-            if (oneDelGroup.getId() == oneDelGroupId) {
-                oneDelGroup = group;
-                return group;
-            }
-
-        }
-        throw new RuntimeException("Sorry, but no(");
-    }
-
-    public GroupData oneGroupIsEmpty_orNot() {
-        Groups groups = app.db().groups();
-
-        for (GroupData group : groups) {
-
-            Contacts beforeDc = null;
-            beforeDc = group.getContacts();
-
-            if (beforeDc.size() != 0) {
-                oneDelGroup = group;
-                return group;
-            }
-
-        }
-
-        throw new RuntimeException("All groups is empty!");
-
-    }
-
     public void ensurePreconditions() {
 
         oneContact = null;
         oneDelGroup = null;
 
-        // Группы вообще есть? Если нет, то создаем 1 группу.
+        // Группы вообще есть? Если нет, то создаем одну группу:
         if (app.db().groups().size() == 0)
         {   app.goTo().groupPage1();
             app.group().create(new GroupData().withName("gr45"));
         }
 
-        // Контакты вообще есть? Если нет, то создаем 1 контакт.
+        // Контакты вообще есть? Если нет, то создаем один контакт:
         if (app.db().contacts().size() == 0){
             app.goTo().homePage();
             ContactData contact = new ContactData().withName("Ivan").withSurname("Klevin");
@@ -124,11 +78,63 @@ public class ContactRemoveFromGroupNew extends TestBase {
         Contacts after = null;
         after = oneDelGroup.getContacts();
 
+        Assert.assertEquals(after.size(),before.size() - 1);
         assertThat(after, equalTo(before.without(contact)));
 
-        Assert.assertEquals(after.size(),before.size() - 1);
-
         app.сontact().returnToMainPage();
+
+    }
+
+    // Вспомогательные методы:
+
+    public GroupData findMeOneGroup () {
+        Groups groups = app.db().groups();
+
+        for (GroupData group : groups) {
+            if (group != null) {
+                oneDelGroup = group;
+                return group;
+            }
+
+        }
+
+        throw new RuntimeException("No new group found");
+    }
+
+    public GroupData reimportMeOneGroup(int oneDelGroupId) {
+        Groups groups = app.db().groups();
+
+        for (GroupData group : groups) {
+            if (oneDelGroup.getId() == oneDelGroupId) {
+                oneDelGroup = group;
+                return group;
+            }
+
+        }
+        throw new RuntimeException("Sorry, but no(");
+    }
+
+    public GroupData oneGroupIsEmpty_orNot() {
+        Groups groups = app.db().groups();
+
+        for (GroupData group : groups) {
+
+            Contacts beforeDc = null;
+            beforeDc = group.getContacts();
+
+            if (beforeDc.size() != 0) {
+                oneDelGroup = group;
+                return group;
+            } else {
+                // создать контакт, добавленный в какую-либо группу:
+                ContactData contact = new ContactData().withName("All groups").withSurname("If").withAddress("is empty").
+                        inGroup(groups.iterator().next());
+                app.сontact().create(contact, true);
+                app.goTo().homePage();
+            }
+        }
+
+        throw new RuntimeException("All groups is empty!"); // не смогла победить эту строчку
 
     }
 

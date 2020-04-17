@@ -15,58 +15,8 @@ public class ContactAddToGroupNew extends TestBase {
     private Contacts before;
     private Contacts after;
 
-//    public GroupData findMeOneGroup () {
-//        Groups groups = app.db().groups();
-//
-//        for (GroupData group : groups) {
-//            if (group != null) {
-//                oneAddGroup = group;
-//                return group;
-//            }
-////            System.out.println("Что выдаст переменная g? " + group );
-//        }
-//
-//        throw new RuntimeException("No new group found");
-//    }
-
-    public GroupData reimportMeOneGroup(int oneAddGroupId) {
-        Groups groups = app.db().groups();
-
-        for (GroupData group : groups) {
-            if (oneAddGroup.getId() == oneAddGroupId) {
-                oneAddGroup = group;
-                return group;
-            }
-        }
-        throw new RuntimeException("Sorry, but no(");
-    }
-
-    public GroupData oneGroupIsFull_orNot() {
-
-        Groups groups = app.db().groups();
-        Contacts contacts = app.db().contacts();
-
-        for (GroupData group : groups) {
-
-            Contacts beforeGc = null;
-            beforeGc = group.getContacts();
-
-            if (beforeGc.size() < contacts.size()) {
-                oneAddGroup = group;
-                return group;
-            } else {
-                GroupData groupEmpty = new GroupData().withName("Group").withHeader("Tf").withFooter("all groups is full!");
-                app.goTo().groupPage();
-                app.group().create(groupEmpty);
-                return groupEmpty;
-            }
-
-        }
-        throw new RuntimeException("All groups is full!"); // не смогла победить эту строчку
-    }
-
     @BeforeTest
-    public void ensurePreconditions() { //предусловия
+    public void ensurePreconditions() {
 
         oneContact = null;
         oneAddGroup = null;
@@ -81,7 +31,7 @@ public class ContactAddToGroupNew extends TestBase {
         if (app.db().contacts().size() == 0){
             app.goTo().homePage();
             ContactData contact = new ContactData().withName("Alex").withSurname("Smotrov");
-            app.сontact().create(contact, true);
+            app.сontact().create(contact, false);
             // Если true, то создается контакт с уже добавленной группой.
             // Если false, то создается контакт, не привязанный к группе.
         }
@@ -131,6 +81,57 @@ public class ContactAddToGroupNew extends TestBase {
 
         app.сontact().returnToMainPage();
 
+    }
+
+    // Вспомогательные методы:
+
+    public GroupData findMeOneGroup () {
+        Groups groups = app.db().groups();
+
+        for (GroupData group : groups) {
+            if (group != null) {
+                oneAddGroup = group;
+                return group;
+            }
+        }
+
+        throw new RuntimeException("No new group found");
+    }
+
+    public GroupData reimportMeOneGroup(int oneAddGroupId) {
+        Groups groups = app.db().groups();
+
+        for (GroupData group : groups) {
+            if (oneAddGroup.getId() == oneAddGroupId) {
+                oneAddGroup = group;
+                return group;
+            }
+        }
+        throw new RuntimeException("Sorry, but no(");
+    }
+
+    public GroupData oneGroupIsFull_orNot() {
+
+        Groups groups = app.db().groups();
+        Contacts contacts = app.db().contacts();
+
+        for (GroupData group : groups) {
+
+            Contacts beforeGc = null;
+            beforeGc = group.getContacts();
+
+            if (beforeGc.size() < contacts.size()) {
+                oneAddGroup = group;
+                return group;
+            } else {
+                GroupData groupEmpty = new GroupData().withName("Group").withHeader("Tf").withFooter("all groups is full!");
+                app.goTo().groupPage();
+                app.group().create(groupEmpty);
+                return groupEmpty;
+            }
+
+        }
+        throw new RuntimeException("All groups is full!"); // не смогла победить эту строчку
     }
 
 }
