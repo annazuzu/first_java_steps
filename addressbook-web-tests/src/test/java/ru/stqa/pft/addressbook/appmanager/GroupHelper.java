@@ -53,6 +53,10 @@ public class GroupHelper extends HelperBase {
         click(By.name("update"));
     }
 
+    public int count() {
+        return wd.findElements(By.name("selected[]")).size();
+    }
+
     public void create(GroupData group) {
         initGroupCreation();
         fillGroupForm(group);
